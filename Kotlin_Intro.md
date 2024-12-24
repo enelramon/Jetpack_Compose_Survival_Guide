@@ -24,3 +24,18 @@ val name: String = "Alice"
 ``` 
 
 Here, we've defined variables with specific data types: `age` as an integer, `height` as a double, `isStudent` as a boolean, and `name` as a string.
+
+### Operators in Kotlin 
+Kotlin inherits familiar operators from Java but introduces some improvements. 
+Let's explore a few. 
+
+### Example 5: Mathematical Operators 
+```kotlin 
+val x = 10 
+val y = 5 
+val sum = x + y 
+val difference = x - y 
+val product = x * y 
+val quotient = x / y 
+val remainder = x % y 
+```
