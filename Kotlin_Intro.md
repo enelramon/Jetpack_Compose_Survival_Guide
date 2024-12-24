@@ -6,5 +6,7 @@ In Kotlin, declaring a variable is a breeze. The `val` keyword is used for read-
 ### Example 3: Declaring Variables 
 ```kotlin 
 val pi = 3.14 
-var counter = 0 ``` 
+var counter = 0
+```
+
 In this example, `pi` is a read-only variable initialized with the value 3.14, while `counter` is a mutable variable starting at 0.
