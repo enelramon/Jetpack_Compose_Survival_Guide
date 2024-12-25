@@ -1,5 +1,4 @@
 # Kotlin Basics: Variables, Data Types, and Operators
-Now that your development environment is set up, let's delve into the building blocks of Kotlin: variables, data types, and operators.
 
 In Kotlin, declaring a variable is a breeze. The `val` keyword is used for read-only variables, and `var` for mutable ones.
 

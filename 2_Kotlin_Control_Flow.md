@@ -1,6 +1,6 @@
 # Control Flow: Making Decisions and Loops
 
-Welcome to the realm of control flow in Kotlin, where your programs gain the ability to make decisions, repeat tasks, and respond dynamically to various scenarios. In this chapter, we'll explore the power of conditional statements, such as `if` and `else`, and learn how to create loops to iterate through code efficiently. These constructs are the backbone of dynamic and responsive programming, enabling your Kotlin applications to adapt to changing conditions and user interactions.
+We will explore the power of conditional statements, such as `if` and `else`, and learn how to create loops to iterate through code efficiently. These constructs are the backbone of dynamic and responsive programming, enabling your Kotlin applications to adapt to changing conditions and user interactions.
 
 ## Conditional Statements: Making Informed Choices
 

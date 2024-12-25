@@ -1,4 +1,4 @@
-# Chapter 5: Functions in Kotlin
+# Functions in Kotlin
 
 ## Defining and Calling
 
