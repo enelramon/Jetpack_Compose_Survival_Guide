@@ -14,7 +14,7 @@
 
 ## Definiendo y Llamando
 
-¡Bienvenido al fascinante mundo de las funciones en Kotlin! En este capítulo, desentrañaremos el poder y la flexibilidad que las funciones aportan a tus programas en Kotlin. Las funciones sirven como bloques de construcción, permitiéndote descomponer tu código en componentes manejables y reutilizables. Exploraremos cómo definir funciones, pasar parámetros, devolver valores y llamar funciones con diferentes enfoques. Vamos a sumergirnos en el corazón de la programación modular y eficiente en Kotlin.
+Las funciones sirven como bloques de construcción, permitiéndote descomponer tu código en componentes manejables y reutilizables. Exploraremos cómo definir funciones, pasar parámetros, devolver valores y llamar funciones con diferentes enfoques. Vamos a sumergirnos en el corazón de la programación modular y eficiente en Kotlin.
 
 ## Definiendo Funciones en Kotlin
 
