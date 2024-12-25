@@ -1,4 +1,4 @@
-# Jetpack Compose Survival Guide
+# Kotlin and Jetpack Compose Survival Guide
 
 ## Índice
 

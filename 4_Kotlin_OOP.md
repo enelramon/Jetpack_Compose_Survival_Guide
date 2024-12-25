@@ -1,291 +1,351 @@
-# Object Oriented Programming
-Object-Oriented Programming revolves around the concept of objects, which are instances of classes, and Kotlin seamlessly integrates these concepts into its syntax. We'll explore classes, objects, inheritance, polymorphism, encapsulation, and more. Let's dive into the fundamentals of OOP and how they manifest in Kotlin.
+# Programación Orientada a Objetos
+La Programación Orientada a Objetos gira en torno al concepto de objetos, que son instancias de clases, y Kotlin integra estos conceptos perfectamente en su sintaxis. Exploraremos clases, objetos, herencia, polimorfismo, encapsulamiento y más. Vamos a sumergirnos en los fundamentos de la POO y cómo se manifiestan en Kotlin.
 
-## Classes and Objects: The Building Blocks of OOP
-At the core of Object-Oriented Programming are classes and objects. A class is a blueprint or template that defines the structure and behavior of objects. Objects, on the other hand, are instances of classes, representing real-world entities. Kotlin simplifies the creation of classes and objects, making it an ideal language for OOP.
+## Clases y Objetos: Los Bloques de Construcción de la POO
+En el núcleo de la Programación Orientada a Objetos están las clases y los objetos. Una clase es un plano o plantilla que define la estructura y el comportamiento de los objetos. Los objetos, por otro lado, son instancias de clases, que representan entidades del mundo real. Kotlin simplifica la creación de clases y objetos, lo que lo convierte en un lenguaje ideal para la POO.
 
-### Example 1: Creating a Simple Class
+### Ejemplo 1: Creando una Clase Simple
 ```kotlin
-// DefinCar {
-    var brand: String = ""
-    var model: String = ""
-    var year: Int = 0
+// Definición de la clase Carro
+class Carro {
+    var marca: String = ""
+    var modelo: String = ""
+    var anio: Int = 0
 
-    fun displayInfo() {
-        println("Car: $brand $model, Year: $year")
+    fun mostrarInfo() {
+        println("Carro: $marca $modelo, Año: $anio")
     }
 }
 ```
 
-In this example, we define a `Car` class with properties (`brand`, `model`, `year`) and a method (`displayInfo`) to showcase information about the car.
+En este ejemplo, definimos una clase `Carro` con propiedades (`marca`, `modelo`, `anio`) y un método (`mostrarInfo`) para mostrar información sobre el carro.
 
-### Example 2: Creating Objects from a Class
+### Ejemplo 2: Creando Objetos a partir de una Clase
 ```kotlin
-// Creating objects of the Car class
-val car1 = Car()
-car1.brand = "Toyota"
-car1.model = "Camry"
-car1.year = 2022
+// Creando objetos de la clase Carro
+val carro1 = Carro()
+carro1.marca = "Toyota"
+carro1.modelo = "Camry"
+carro1.anio = 2022
 
-val car2 = Car()
-car2.brand = "Honda"
-car2.model = "Civic"
-car2.year = 2021
+val carro2 = Carro()
+carro2.marca = "Honda"
+carro2.modelo = "Civic"
+carro2.anio = 2021
 
-// Calling the displayInfo method on each car object
-car1.displayInfo()
-car2.displayInfo()
+// Llamando al método mostrarInfo en cada objeto carro
+carro1.mostrarInfo()
+carro2.mostrarInfo()
 ```
 
-Here, we create two objects (`car1` and `car2`) from the `Car` class and set their properties. The `displayInfo` method is then called on each object to showcase their information.
+Aquí, creamos dos objetos (`carro1` y `carro2`) de la clase `Carro` y establecemos sus propiedades. Luego se llama al método `mostrarInfo` en cada objeto para mostrar su información.
 
-## Constructors: Initializing Objects with Ease
-Constructors are special methods in a class that are responsible for initializing the properties of an object when it is created. Kotlin offers concise and flexible ways to define constructors.
+## Constructores: Inicializando Objetos con Facilidad
+Los constructores son métodos especiales en una clase que son responsables de inicializar las propiedades de un objeto cuando se crea. Kotlin ofrece formas concisas y flexibles para definir constructores.
 
-### Example 3: Primary Constructor
+### Ejemplo 3: Constructor Primario
 ```kotlin
-// Class with a primary constructor
-class Book(val title: String, val author: String, val year: Int) {
-    // Method to display information about the book
-    fun displayInfo() {
-        println("Book: $title by $author, Year: $year")
+// Clase con un constructor primario
+class Libro(val titulo: String, val autor: String, val anio: Int) {
+    // Método para mostrar información sobre el libro
+    fun mostrarInfo() {
+        println("Libro: $titulo por $autor, Año: $anio")
     }
 }
 ```
 
-In this example, we define a `Book` class with a primary constructor. The properties (`title`, `author`, `year`) are declared directly in the constructor header.
+En este ejemplo, definimos una clase `Libro` con un constructor primario. Las propiedades (`titulo`, `autor`, `anio`) se declaran directamente en el encabezado del constructor.
 
-### Example 4: Creating Objects with Primary Constructor
+### Ejemplo 4: Creando Objetos con Constructor Primario
 ```kotlin
-// Creating objects using the primary constructor
-val book1 = Book("The Alchemist", "Paulo Coelho", 1988)
-val book2 = Book("To Kill a Mockingbird", "Harper Lee", 1960)
+// Creando objetos usando el constructor primario
+val libro1 = Libro("El Alquimista", "Paulo Coelho", 1988)
+val libro2 = Libro("Matar a un ruiseñor", "Harper Lee", 1960)
 
-// Calling the displayInfo method on each book object
-book1.displayInfo()
-book2.displayInfo()
+// Llamando al método mostrarInfo en cada objeto libro
+libro1.mostrarInfo()
+libro2.mostrarInfo()
 ```
 
-Objects (`book1` and `book2`) are created using the primary constructor, providing values for the properties. The `displayInfo` method is then called to showcase information about each book.
+Se crean objetos (`libro1` y `libro2`) usando el constructor primario, proporcionando valores para las propiedades. Luego se llama al método `mostrarInfo` para mostrar información sobre cada libro.
 
-### Example 5: Secondary Constructor
+### Ejemplo 5: Constructor Secundario
 ```kotlin
-class Movie {
-    var title: String = ""
+class Pelicula {
+    var titulo: String = ""
     var director: String = ""
-    var year: Int = 0
+    var anio: Int = 0
 
-    // Secondary constructor with additional parameters
-    constructor(title: String, director: String, year: Int) {
-        this.title = title
+    // Constructor secundario con parámetros adicionales
+    constructor(titulo: String, director: String, anio: Int) {
+        this.titulo = titulo
         this.director = director
-        this.year = year
+        this.anio = anio
     }
 
-    // Method to display information about the movie
-    fun displayInfo() {
-        println("Movie: $title directed by $director, Year: $year")
-    }
-}
-```
-
-Here, we define a `Movie` class with a secondary constructor that allows additional parameters to be passed when creating an object.
-
-### Example 6: Creating Objects with Secondary Constructor
-```kotlin
-// Creating objects using the secondary constructor
-val movie1 = Movie("Inception", "Christopher Nolan", 2010)
-val movie2 = Movie("The Shawshank Redemption", "Frank Darabont", 1994)
-
-// Calling the displayInfo method on each movie object
-movie1.displayInfo()
-movie2.displayInfo()
-```
-
-Objects (`movie1` and `movie2`) are created using the secondary constructor, providing values for the additional parameters. The `displayInfo` method showcases information about each movie.
-
-## Inheritance: Building Hierarchies of Classes
-Inheritance is a fundamental concept in OOP that allows a class to inherit properties and behaviors from another class. Kotlin supports single-class inheritance, providing a clean and structured way to build class hierarchies.
-
-### Example 7: Inheriting from a Base Class
-```kotlin
-// Base class
-open class Animal(val name: String) {
-    open fun makeSound() {
-        println("Animal $name makes a generic sound")
-    }
-}
-
-// Derived class inheriting from Animal
-class Dog(name: String) : Animal(name) {
-    // Overriding the makeSound method
-    override fun makeSound() {
-        println("Dog $name barks loudly")
+    // Método para mostrar información sobre la película
+    fun mostrarInfo() {
+        println("Pelicula: $titulo dirigida por $director, Año: $anio")
     }
 }
 ```
 
-In this example, we define a base class (`Animal`) with a property (`name`) and a method (`makeSound`). The `Dog` class inherits from `Animal` and overrides the `makeSound` method.
+Aquí, definimos una clase `Pelicula` con un constructor secundario que permite pasar parámetros adicionales al crear un objeto.
 
-### Example 8: Using Inherited Classes
+### Ejemplo 6: Creando Objetos con Constructor Secundario
 ```kotlin
-// Creating objects of the base and derived classes
-val genericAnimal = Animal("Generic")
-val fluffyDog = Dog("Fluffy")
+// Creando objetos usando el constructor secundario
+val pelicula1 = Pelicula("Inception", "Christopher Nolan", 2010)
+val pelicula2 = Pelicula("Sueño de fuga", "Frank Darabont", 1994)
 
-// Calling the makeSound method on each object
-genericAnimal.makeSound()
-fluffyDog.makeSound()
+// Llamando al método mostrarInfo en cada objeto película
+pelicula1.mostrarInfo()
+pelicula2.mostrarInfo()
 ```
 
-Objects (`genericAnimal` and `fluffyDog`) are created from the base and derived classes. The `makeSound` method is called on each object, demonstrating polymorphism.
+Se crean objetos (`pelicula1` y `pelicula2`) usando el constructor secundario, proporcionando valores para los parámetros adicionales. El método `mostrarInfo` muestra información sobre cada película.
 
-## Polymorphism: Embracing Diversity in Types
-Polymorphism allows objects of different types to be treated as objects of a common base type. Kotlin supports polymorphism through class inheritance and interface implementation.
+## Herencia: Construyendo Jerarquías de Clases
+La herencia es un concepto fundamental en la POO que permite que una clase herede propiedades y comportamientos de otra clase. Kotlin soporta la herencia de una sola clase, proporcionando una forma limpia y estructurada de construir jerarquías de clases.
 
-### Example 9: Using Polymorphism with Interfaces
+### Ejemplo 7: Heredando de una Clase Base
 ```kotlin
-// Interface defining the sound behavior
-interface SoundMaker {
-    fun makeSound()
+// Clase base
+open class Animal(val nombre: String) {
+    open fun hacerSonido() {
+        println("Animal $nombre hace un sonido genérico")
+    }
 }
 
-// Class implementing the SoundMaker interface
-class Cat(val name: String) : SoundMaker {
-    // Implementing the makeSound method
-    override fun makeSound() {
-        println("Cat $name purrs softly")
+// Clase derivada que hereda de Animal
+class Perro(nombre: String) : Animal(nombre) {
+    // Sobrescribiendo el método hacerSonido
+    override fun hacerSonido() {
+        println("Perro $nombre ladra fuerte")
     }
 }
 ```
 
-Here, we define an `SoundMaker` interface with a `makeSound` method. The `Cat` class implements this interface.
+En este ejemplo, definimos una clase base (`Animal`) con una propiedad (`nombre`) y un método (`hacerSonido`). La clase `Perro` hereda de `Animal` y sobrescribe el método `hacerSonido`.
 
-### Example 10: Using Polymorphism with Interface Objects
+### Ejemplo 8: Usando Clases Heredadas
 ```kotlin
-// Creating objects of the interface and implementing class
-val soundMaker: SoundMaker = Cat("Whiskers")
+// Creando objetos de las clases base y derivada
+val animalGenerico = Animal("Genérico")
+val perroPeludo = Perro("Peludo")
 
-// Calling the makeSound method on the interface object
-soundMaker.makeSound()
+// Llamando al método hacerSonido en cada objeto
+animalGenerico.hacerSonido()
+perroPeludo.hacerSonido()
 ```
 
-An object (`soundMaker`) of the `SoundMaker` interface is created, pointing to a `Cat` instance. The `makeSound` method is called on the interface object, showcasing polymorphism.
+Se crean objetos (`animalGenerico` y `perroPeludo`) de las clases base y derivada. Se llama al método `hacerSonido` en cada objeto, demostrando polimorfismo.
 
-## Encapsulation: Protecting the Inside World
-Encapsulation is the practice of bundling the data (properties) and methods that operate on the data within a single unit, known as a class. Kotlin provides visibility modifiers to control the accessibility of properties and methods.
+## Polimorfismo: Abrazando la Diversidad en Tipos
+El polimorfismo permite que objetos de diferentes tipos sean tratados como objetos de un tipo base común. Kotlin soporta el polimorfismo a través de la herencia de clases y la implementación de interfaces.
 
-### Example 11: Using Visibility Modifiers
+### Ejemplo 9: Usando Polimorfismo con Interfaces
 ```kotlin
-// Class with private and public properties
-class BankAccount {
-    private var balance: Double = 0.0
+// Interfaz que define el comportamiento de sonido
+interface HacedorDeSonido {
+    fun hacerSonido()
+}
 
-    // Public method to deposit money
-    fun deposit(amount: Double) {
-        if (amount > 0) {
-            balance += amount
-            println("Deposit successful. New balance: $balance")
+// Clase que implementa la interfaz HacedorDeSonido
+class Gato(val nombre: String) : HacedorDeSonido {
+    // Implementando el método hacerSonido
+    override fun hacerSonido() {
+        println("Gato $nombre ronronea suavemente")
+    }
+}
+```
+
+Aquí, definimos una interfaz `HacedorDeSonido` con un método `hacerSonido`. La clase `Gato` implementa esta interfaz.
+
+### Ejemplo 10: Usando Polimorfismo con Objetos de Interfaz
+```kotlin
+// Creando objetos de la interfaz y la clase que la implementa
+val hacedorDeSonido: HacedorDeSonido = Gato("Bigotes")
+
+// Llamando al método hacerSonido en el objeto de la interfaz
+hacedorDeSonido.hacerSonido()
+```
+
+Se crea un objeto (`hacedorDeSonido`) de la interfaz `HacedorDeSonido`, apuntando a una instancia de `Gato`. Se llama al método `hacerSonido` en el objeto de la interfaz, mostrando polimorfismo.
+
+## Encapsulamiento: Protegiendo el Mundo Interior
+El encapsulamiento es la práctica de agrupar los datos (propiedades) y los métodos que operan sobre los datos dentro de una sola unidad, conocida como clase. Kotlin proporciona modificadores de visibilidad para controlar la accesibilidad de las propiedades y métodos.
+
+### Ejemplo 11: Usando Modificadores de Visibilidad
+```kotlin
+// Clase con propiedades privadas y públicas
+class CuentaBancaria {
+    private var saldo: Double = 0.0
+
+    // Método público para depositar dinero
+    fun depositar(monto: Double) {
+        if (monto > 0) {
+            saldo += monto
+            println("Depósito exitoso. Nuevo saldo: $saldo")
         } else {
-            println("Invalid deposit amount")
+            println("Monto de depósito inválido")
         }
     }
 
-    // Public method to check balance
-    fun checkBalance() {
-        println("Current balance: $balance")
+    // Método público para verificar el saldo
+    fun verificarSaldo() {
+        println("Saldo actual: $saldo")
     }
 }
 ```
 
-In this example, the `BankAccount` class has a private property (`balance`) and public methods (`deposit`, `checkBalance`). The `balance` is encapsulated, and its access is restricted to methods within the class.
+En este ejemplo, la clase `CuentaBancaria` tiene una propiedad privada (`saldo`) y métodos públicos (`depositar`, `verificarSaldo`). El `saldo` está encapsulado y su acceso está restringido a los métodos dentro de la clase.
 
-### Example 12: Interacting with Encapsulated Class
+### Ejemplo 12: Interactuando con la Clase Encapsulada
 ```kotlin
-// Creating an object of the BankAccount class
-val account = BankAccount()
+// Creando un objeto de la clase CuentaBancaria
+val cuenta = CuentaBancaria()
 
-// Performing operations on the object
-account.deposit(1000.0)
-account.deposit(-500.0) // Invalid deposit amount
-account.checkBalance()
+// Realizando operaciones en el objeto
+cuenta.depositar(1000.0)
+cuenta.depositar(-500.0) // Monto de depósito inválido
+cuenta.verificarSaldo()
 ```
 
-An object (`account`) of the `BankAccount` class is created, and operations like depositing money and checking the balance are performed. The encapsulation ensures that the `balance` property is accessed and modified only through the class methods.
+Se crea un objeto (`cuenta`) de la clase `CuentaBancaria`, y se realizan operaciones como depositar dinero y verificar el saldo. El encapsulamiento asegura que la propiedad `saldo` sea accedida y modificada solo a través de los métodos de la clase.
 
-## Abstract Classes and Interfaces: Blueprint for Types
-Abstract classes and interfaces provide blueprints for other classes to follow. Abstract classes can have both abstract and concrete methods, while interfaces only declare abstract methods.
+## Clases Abstractas e Interfaces: Plano para Tipos
+Las clases abstractas y las interfaces proporcionan planos para que otras clases los sigan. Las clases abstractas pueden tener métodos abstractos y concretos, mientras que las interfaces solo declaran métodos abstractos.
 
-### Example 13: Abstract Class
+### Ejemplo 13: Clase Abstracta
 ```kotlin
-// Abstract class with abstract and concrete methods
-abstract class Shape(val name: String) {
-    // Abstract method to calculate area
-    abstract fun calculateArea(): Double
+// Clase abstracta con métodos abstractos y concretos
+abstract class Forma(val nombre: String) {
+    // Método abstracto para calcular el área
+    abstract fun calcularArea(): Double
 
-    // Concrete method
-    fun displayInfo() {
-        println("$name - Area: ${calculateArea()}")
+    // Método concreto
+    fun mostrarInfo() {
+        println("$nombre - Área: ${calcularArea()}")
     }
 }
 ```
 
-Here, we define an abstract class (`Shape`) with an abstract method (`calculateArea`) and a concrete method (`displayInfo`).
+Aquí, definimos una clase abstracta (`Forma`) con un método abstracto (`calcularArea`) y un método concreto (`mostrarInfo`).
 
-### Example 14: Concrete Class Extending Abstract Class
+### Ejemplo 14: Clase Concreta que Extiende la Clase Abstracta
 ```kotlin
-// Concrete class extending the abstract class
-class Circle(radius: Double) : Shape("Circle") {
-    // Overriding the abstract method to calculate area
-    override fun calculateArea(): Double {
-        return 3.14 * radius * radius
+// Clase concreta que extiende la clase abstracta
+class Circulo(val radio: Double) : Forma("Círculo") {
+    // Sobrescribiendo el método abstracto para calcular el área
+    override fun calcularArea(): Double {
+        return 3.14 * radio * radio
     }
 }
 ```
 
-The `Circle` class extends the `Shape` abstract class and provides an implementation for the abstract method.
+La clase `Circulo` extiende la clase abstracta `Forma` y proporciona una implementación para el método abstracto.
 
-### Example 15: Using Abstract Class and Concrete Class
+### Ejemplo 15: Usando Clase Abstracta y Clase Concreta
 ```kotlin
-// Creating an object of the concrete class
-val circle = Circle(5.0)
+// Creando un objeto de la clase concreta
+val circulo = Circulo(5.0)
 
-// Calling the concrete and abstract methods
-circle.displayInfo()
+// Llamando a los métodos concretos y abstractos
+circulo.mostrarInfo()
 ```
 
-An object (`circle`) of the `Circle` class is created, and the `displayInfo` method is called, showcasing the use of abstract and concrete methods.
+Se crea un objeto (`circulo`) de la clase `Circulo`, y se llama al método `mostrarInfo`, mostrando el uso de métodos abstractos y concretos.
 
-### Example 16: Interface
+### Ejemplo 16: Interfaz
 ```kotlin
-// Interface defining the behavior of a printer
-interface Printer {
-    fun print(document: String)
+// Interfaz que define el comportamiento de una impresora
+interface Impresora {
+    fun imprimir(documento: String)
 }
 ```
 
-Here, we define a `Printer` interface with a single abstract method (`print`).
+Aquí, definimos una interfaz `Impresora` con un solo método abstracto (`imprimir`).
 
-### Example 17: Class Implementing an Interface
+### Ejemplo 17: Clase que Implementa una Interfaz
 ```kotlin
-// Class implementing the Printer interface
-class LaserPrinter : Printer {
-    // Implementing the print method
-    override fun print(document: String) {
-        println("Printing document: $document (Laser Printer)")
+// Clase que implementa la interfaz Impresora
+class ImpresoraLaser : Impresora {
+    // Implementando el método imprimir
+    override fun imprimir(documento: String) {
+        println("Imprimiendo documento: $documento (Impresora Láser)")
     }
 }
 ```
 
-The `LaserPrinter` class implements the `Printer` interface and provides an implementation for the `print` method.
+La clase `ImpresoraLaser` implementa la interfaz `Impresora` y proporciona una implementación para el método `imprimir`.
 
-### Example 18: Using Interface and Implementing Class
+### Ejemplo 18: Usando Interfaz y Clase que la Implementa
 ```kotlin
-// Creating an object of the implementing class
-val laserPrinter = LaserPrinter()
+// Creando un objeto de la clase que implementa la interfaz
+val impresoraLaser = ImpresoraLaser()
 
-// Calling the interface method through the implementing class
-laserPrinter.print("Sales Report")
+// Llamando al método de la interfaz a través de la clase que la implementa
+impresoraLaser.imprimir("Informe de Ventas")
 ```
 
-An object (`laserPrinter`) of the `LaserPrinter` class is created, and the `print` method is called, demonstrating the use of interfaces.
+Se crea un objeto (`impresoraLaser`) de la clase `ImpresoraLaser`, y se llama al método `imprimir`, demostrando el uso de interfaces.
+
+## Data Classes: Simplificando la Creación de Clases de Datos
+Las data classes en Kotlin son clases diseñadas para almacenar datos. Proporcionan una forma concisa de crear clases con propiedades, y automáticamente generan métodos como `equals`, `hashCode`, y `toString`.
+
+### Ejemplo 19: Definiendo una Data Class
+```kotlin
+// Definición de una data class
+data class Persona(val nombre: String, val edad: Int)
+```
+
+En este ejemplo, definimos una data class `Persona` con propiedades `nombre` y `edad`.
+
+### Ejemplo 20: Usando una Data Class
+```kotlin
+// Creando objetos de la data class
+val persona1 = Persona("Juan", 30)
+val persona2 = Persona("Ana", 25)
+
+// Usando los métodos generados automáticamente
+println(persona1)
+println(persona2)
+println(persona1 == persona2)
+```
+
+Se crean objetos (`persona1` y `persona2`) de la data class `Persona`, y se utilizan los métodos generados automáticamente como `toString` y `equals`.
+
+## Sealed Interfaces: Definiendo Jerarquías de Tipos Restringidas
+Las sealed interfaces en Kotlin permiten definir jerarquías de tipos restringidas, donde solo un conjunto específico de tipos puede implementar la interfaz.
+
+### Ejemplo 21: Definiendo una Sealed Interface
+```kotlin
+// Definición de una sealed interface
+sealed interface Resultado{
+    data class Exito(val mensaje: String) : Resultado
+    data class Error(val error: String) : Resultado
+}
+```
+
+En este ejemplo, definimos una sealed interface `Resultado` y dos clases (`Exito` y `Error`) que la implementan.
+
+### Ejemplo 22: Usando una Sealed Interface
+```kotlin
+// Función que maneja un Resultado
+fun manejarResultado(resultado: Resultado) {
+    when (resultado) {
+        is Exito -> println("Éxito: ${resultado.mensaje}")
+        is Error -> println("Error: ${resultado.error}")
+    }
+}
+
+// Usando la sealed interface
+val resultado1: Resultado = Exito("Operación completada")
+val resultado2: Resultado = Error("Ocurrió un error")
+
+manejarResultado(resultado1)
+manejarResultado(resultado2)
+```
+
+Se define una función `manejarResultado` que maneja un `Resultado` usando una expresión `when`. Se crean objetos (`resultado1` y `resultado2`) de las clases que implementan la sealed interface y se pasan a la función.

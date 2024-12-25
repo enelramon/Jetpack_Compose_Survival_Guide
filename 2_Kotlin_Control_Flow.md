@@ -1,263 +1,263 @@
-# Control Flow: Making Decisions and Loops
+# Flujo de Control: Tomando Decisiones y Bucles
 
-We will explore the power of conditional statements, such as `if` and `else`, and learn how to create loops to iterate through code efficiently. These constructs are the backbone of dynamic and responsive programming, enabling your Kotlin applications to adapt to changing conditions and user interactions.
+Exploraremos el poder de las declaraciones condicionales, como `if` y `else`, y aprenderemos a crear bucles para iterar a través del código de manera eficiente. Estos constructos son la columna vertebral de la programación dinámica y receptiva, permitiendo que tus aplicaciones en Kotlin se adapten a condiciones cambiantes e interacciones del usuario.
 
-## Conditional Statements: Making Informed Choices
+## Declaraciones Condicionales: Tomando Decisiones Informadas
 
-Conditional statements allow your program to make decisions based on certain conditions. The most common form is the `if` statement, which evaluates a condition and executes a block of code if the condition is true.
+Las declaraciones condicionales permiten que tu programa tome decisiones basadas en ciertas condiciones. La forma más común es la declaración `if`, que evalúa una condición y ejecuta un bloque de código si la condición es verdadera.
 
-### Example 1: Basic `if` Statement
+### Ejemplo 1: Declaración `if` Básica
 
 ```kotlin
-val temperature = 25
-if (temperature > 30) {
-    println("It's a hot day!")
-} else if (temperature in 20..30) {
-    println("The weather is pleasant.")
+val temperatura = 25
+if (temperatura > 30) {
+    println("¡Hace calor!")
+} else if (temperatura in 20..30) {
+    println("El clima es agradable.")
 } else {
-    println("It's a bit chilly.")
+    println("Hace un poco de frío.")
 }
 ```
 
-In this example, the program assesses the temperature and prints a message accordingly. The `else if` block allows for multiple conditions, providing a more nuanced decision-making process.
+En este ejemplo, el programa evalúa la temperatura e imprime un mensaje en consecuencia. El bloque `else if` permite múltiples condiciones, proporcionando un proceso de toma de decisiones más matizado.
 
-### Example 2: Expressive `when` Statement
+### Ejemplo 2: Declaración `when` Expresiva
 
-The `when` statement is a versatile alternative to the traditional `switch` statement in other languages. It evaluates multiple conditions and executes the block corresponding to the first true condition.
+La declaración `when` es una alternativa versátil a la declaración `switch` tradicional en otros lenguajes. Evalúa múltiples condiciones y ejecuta el bloque correspondiente a la primera condición verdadera.
 
 ```kotlin
-val dayOfWeek = "Wednesday"
-when (dayOfWeek) {
-    "Monday" -> println("It's the start of the week.")
-    "Wednesday", "Thursday" -> println("Midweek vibes!")
-    "Saturday" -> println("Weekend is here!")
-    else -> println("Just another day.")
+val diaDeLaSemana = "Miércoles"
+when (diaDeLaSemana) {
+    "Lunes" -> println("Es el comienzo de la semana.")
+    "Miércoles", "Jueves" -> println("¡Mitad de semana!")
+    "Sábado" -> println("¡El fin de semana está aquí!")
+    else -> println("Otro día más.")
 }
 ```
 
-Here, the `when` statement checks the value of `dayOfWeek` and prints a message based on the matching condition. The `else` block serves as a fallback for any unmatched values.
+Aquí, la declaración `when` verifica el valor de `diaDeLaSemana` e imprime un mensaje basado en la condición coincidente. El bloque `else` sirve como respaldo para cualquier valor no coincidente.
 
-## Loops: Repeating Tasks Efficiently
+## Bucles: Repitiendo Tareas Eficientemente
 
-Loops are essential for performing repetitive tasks and iterating through collections or sequences of data. Kotlin offers both `for` and `while` loops to cater to different scenarios.
+Los bucles son esenciales para realizar tareas repetitivas e iterar a través de colecciones o secuencias de datos. Kotlin ofrece tanto bucles `for` como `while` para adaptarse a diferentes escenarios.
 
-### Example 3: `for` Loop
+### Ejemplo 3: Bucle `for`
 
-The `for` loop is excellent for iterating through ranges, arrays, or any iterable object.
+El bucle `for` es excelente para iterar a través de rangos, matrices o cualquier objeto iterable.
 
 ```kotlin
-// Printing numbers from 1 to 5
+// Imprimiendo números del 1 al 5
 for (i in 1..5) {
-    println("Count: $i")
+    println("Cuenta: $i")
 }
 ```
 
-In this example, the `for` loop iterates through the range from 1 to 5, printing the count at each iteration. The `in` keyword simplifies the syntax, making it more readable.
+En este ejemplo, el bucle `for` itera a través del rango del 1 al 5, imprimiendo la cuenta en cada iteración. La palabra clave `in` simplifica la sintaxis, haciéndola más legible.
 
-### Example 4: `while` Loop
+### Ejemplo 4: Bucle `while`
 
-The `while` loop repeats a block of code as long as a specified condition is true.
+El bucle `while` repite un bloque de código mientras una condición especificada sea verdadera.
 
 ```kotlin
-var countdown = 3
-while (countdown > 0) {
-    println("Countdown: $countdown")
-    countdown--
+var cuentaRegresiva = 3
+while (cuentaRegresiva > 0) {
+    println("Cuenta regresiva: $cuentaRegresiva")
+    cuentaRegresiva--
 }
 ```
 
-Here, the `while` loop creates a countdown by printing the current value of `countdown` until it reaches zero. The loop continues as long as the condition `countdown > 0` holds true.
+Aquí, el bucle `while` crea una cuenta regresiva imprimiendo el valor actual de `cuentaRegresiva` hasta que llega a cero. El bucle continúa mientras la condición `cuentaRegresiva > 0` sea verdadera.
 
-### Example 5: `do-while` Loop
+### Ejemplo 5: Bucle `do-while`
 
-Similar to the `while` loop, the `do-while` loop executes the block of code first and then checks the condition. This ensures the block is executed at least once.
+Similar al bucle `while`, el bucle `do-while` ejecuta el bloque de código primero y luego verifica la condición. Esto asegura que el bloque se ejecute al menos una vez.
 
 ```kotlin
-var attempts = 0
+var intentos = 0
 do {
-    println("Trying to connect...")
-    attempts++
-} while (attempts < 3)
+    println("Intentando conectar...")
+    intentos++
+} while (intentos < 3)
 ```
 
-In this example, the program attempts to connect, and the loop continues until the `attempts` reach a maximum of three. This guarantees that the connection attempt is made at least once.
+En este ejemplo, el programa intenta conectarse, y el bucle continúa hasta que los `intentos` alcanzan un máximo de tres. Esto garantiza que se realice al menos un intento de conexión.
 
-## Breaking and Continuing Loops
+## Rompiendo y Continuando Bucles
 
-In some cases, you might want to prematurely exit a loop or skip to the next iteration. Kotlin provides the `break` and `continue` statements for these scenarios.
+En algunos casos, es posible que desees salir prematuramente de un bucle o saltar a la siguiente iteración. Kotlin proporciona las declaraciones `break` y `continue` para estos escenarios.
 
-### Example 6: `break` Statement
+### Ejemplo 6: Declaración `break`
 
-The `break` statement terminates the innermost loop it is in.
+La declaración `break` termina el bucle más interno en el que se encuentra.
 
 ```kotlin
 for (i in 1..10) {
     if (i == 5) {
-        println("Breaking at $i")
+        println("Rompiendo en $i")
         break
     }
-    println("Iteration: $i")
+    println("Iteración: $i")
 }
 ```
 
-In this example, the loop iterates from 1 to 10, but when `i` reaches 5, the `break` statement is triggered, and the loop terminates.
+En este ejemplo, el bucle itera del 1 al 10, pero cuando `i` llega a 5, se activa la declaración `break` y el bucle termina.
 
-### Example 7: `continue` Statement
+### Ejemplo 7: Declaración `continue`
 
-The `continue` statement skips the rest of the code in the loop for the current iteration and moves to the next one.
+La declaración `continue` omite el resto del código en el bucle para la iteración actual y pasa a la siguiente.
 
 ```kotlin
 for (i in 1..5) {
     if (i == 3) {
-        println("Skipping iteration $i")
+        println("Saltando iteración $i")
         continue
     }
-    println("Iteration: $i")
+    println("Iteración: $i")
 }
 ```
 
-Here, when `i` is equal to 3, the `continue` statement is executed, skipping the rest of the loop for that iteration.
+Aquí, cuando `i` es igual a 3, se ejecuta la declaración `continue`, omitiendo el resto del bucle para esa iteración.
 
-## Labeling Loops
+## Etiquetando Bucles
 
-In nested loops, Kotlin allows you to label them and specify which loop to break or continue.
+En bucles anidados, Kotlin te permite etiquetarlos y especificar qué bucle romper o continuar.
 
-### Example 8: Labeled `break`
+### Ejemplo 8: `break` Etiquetado
 
 ```kotlin
-outerLoop@ for (i in 1..3) {
+bucleExterior@ for (i in 1..3) {
     for (j in 1..3) {
         if (i * j == 6) {
-            println("Breaking at $i, $j")
-            break@outerLoop
+            println("Rompiendo en $i, $j")
+            break@bucleExterior
         }
-        println("Iteration: $i, $j")
+        println("Iteración: $i, $j")
     }
 }
 ```
 
-In this example, the outer loop is labeled as `outerLoop`. When the condition `i * j == 6` is met, the `break@outerLoop` statement terminates both loops.
+En este ejemplo, el bucle exterior está etiquetado como `bucleExterior`. Cuando se cumple la condición `i * j == 6`, la declaración `break@bucleExterior` termina ambos bucles.
 
-### Example 9: Labeled `continue`
+### Ejemplo 9: `continue` Etiquetado
 
 ```kotlin
-outerLoop@ for (i in 1..3) {
+bucleExterior@ for (i in 1..3) {
     for (j in 1..3) {
         if (i == 2 && j == 2) {
-            println("Skipping iteration $i, $j")
-            continue@outerLoop
+            println("Saltando iteración $i, $j")
+            continue@bucleExterior
         }
-        println("Iteration: $i, $j")
+        println("Iteración: $i, $j")
     }
 }
 ```
 
-Here, when `i` is 2 and `j` is 2, the `continue@outerLoop` statement skips the rest of the inner loop for that iteration.
+Aquí, cuando `i` es 2 y `j` es 2, la declaración `continue@bucleExterior` omite el resto del bucle interno para esa iteración.
 
-## Making Choices with Control Flow
+## Tomando Decisiones con el Flujo de Control
 
-Control flow is about making choices in your program, and combining conditional statements with loops can create powerful and responsive applications. Let's explore a more complex example that integrates these concepts.
+El flujo de control se trata de tomar decisiones en tu programa, y combinar declaraciones condicionales con bucles puede crear aplicaciones poderosas y receptivas. Vamos a explorar un ejemplo más complejo que integre estos conceptos.
 
-### Example 10: Dynamic Program Flow
+### Ejemplo 10: Flujo de Programa Dinámico
 
 ```kotlin
-val numbers = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-for (number in numbers) {
-    if (number % 2 == 0) {
-        println("Even number: $number")
+val numeros = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+for (numero in numeros) {
+    if (numero % 2 == 0) {
+        println("Número par: $numero")
     } else {
-        println("Odd number: $number")
+        println("Número impar: $numero")
     }
 }
 ```
 
-In this example, the program iterates through a list of numbers. For each number, it checks if it's even or odd using the modulo operator (`%`). The result is printed dynamically, showcasing the decision-making ability of control flow.
+En este ejemplo, el programa itera a través de una lista de números. Para cada número, verifica si es par o impar usando el operador módulo (`%`). El resultado se imprime dinámicamente, mostrando la capacidad de toma de decisiones del flujo de control.
 
-## Advanced Control Flow: `when` with Ranges and Patterns
+## Flujo de Control Avanzado: `when` con Rangos y Patrones
 
-The `when` statement in Kotlin is a powerful tool for making decisions. It's not limited to simple equality checks; you can use it with ranges and even patterns.
+La declaración `when` en Kotlin es una herramienta poderosa para tomar decisiones. No se limita a comprobaciones de igualdad simples; puedes usarla con rangos e incluso patrones.
 
-### Example 11: Using `when` with Ranges
+### Ejemplo 11: Usando `when` con Rangos
 
 ```kotlin
-val score = 85
-when (score) {
+val puntuacion = 85
+when (puntuacion) {
     in 90..100 -> println("A")
     in 80 until 90 -> println("B")
     in 70 until 80 -> println("C")
-    else -> println("Fail")
+    else -> println("Reprobado")
 }
 ```
 
-In this example, the program evaluates the `score` and prints the corresponding grade based on the defined ranges.
+En este ejemplo, el programa evalúa la `puntuacion` e imprime la calificación correspondiente basada en los rangos definidos.
 
-### Example 12: Using `when` with Patterns
+### Ejemplo 12: Usando `when` con Patrones
 
 ```kotlin
-val result: Any = "Success"
-when (result) {
-    is String -> println("Result is a String: $result")
-    is Int -> println("Result is an Int: $result")
-    is Boolean -> println("Result is a Boolean: $result")
-    else -> println("Unknown result type")
+val resultado: Any = "Éxito"
+when (resultado) {
+    is String -> println("El resultado es una cadena: $resultado")
+    is Int -> println("El resultado es un entero: $resultado")
+    is Boolean -> println("El resultado es un booleano: $resultado")
+    else -> println("Tipo de resultado desconocido")
 }
 ```
 
-Here, the `when` statement uses patterns to check the type of the `result` variable and prints a message accordingly. The `is` keyword is used for type checking.
+Aquí, la declaración `when` usa patrones para verificar el tipo de la variable `resultado` e imprime un mensaje en consecuencia. La palabra clave `is` se usa para la comprobación de tipos.
 
-## Handling Edge Cases: `try`, `catch`, and `finally`
+## Manejo de Casos Extremos: `try`, `catch` y `finally`
 
-In the real world, your programs might encounter unexpected situations or errors. Kotlin provides a robust exception handling mechanism with `try`, `catch`, and `finally` blocks.
+En el mundo real, tus programas pueden encontrarse con situaciones inesperadas o errores. Kotlin proporciona un mecanismo robusto de manejo de excepciones con bloques `try`, `catch` y `finally`.
 
-### Example 13: Exception Handling
+### Ejemplo 13: Manejo de Excepciones
 
 ```kotlin
-fun divide(a: Int, b: Int): Int {
+fun dividir(a: Int, b: Int): Int {
     return try {
         a / b
     } catch (e: ArithmeticException) {
         println("Error: ${e.message}")
         -1
     } finally {
-        println("Division attempt completed.")
+        println("Intento de división completado.")
     }
 }
-val result = divide(10, 0)
-println("Result of division: $result")
+val resultado = dividir(10, 0)
+println("Resultado de la división: $resultado")
 ```
 
-In this example, the `divide` function attempts to perform a division. If an `ArithmeticException` occurs (such as division by zero), the `catch` block handles the exception and prints an error message. The `finally` block is executed regardless of whether an exception occurs, providing a cleanup or finalization step.
+En este ejemplo, la función `dividir` intenta realizar una división. Si ocurre una `ArithmeticException` (como la división por cero), el bloque `catch` maneja la excepción e imprime un mensaje de error. El bloque `finally` se ejecuta independientemente de si ocurre una excepción, proporcionando un paso de limpieza o finalización.
 
-## Practical Application: Building a Simple Calculator
+## Aplicación Práctica: Construyendo una Calculadora Simple
 
-To tie everything together, let's build a simple calculator program using control flow constructs. This program will accept user input for two numbers and an operation, perform the calculation, and display the result.
+Para unir todo, vamos a construir un programa de calculadora simple usando constructos de flujo de control. Este programa aceptará la entrada del usuario para dos números y una operación, realizará el cálculo y mostrará el resultado.
 
-### Example 14: Simple Calculator Program
+### Ejemplo 14: Programa de Calculadora Simple
 
 ```kotlin
 fun main() {
-    println("Welcome to the Simple Calculator!")
-    print("Enter the first number: ")
+    println("¡Bienvenido a la Calculadora Simple!")
+    print("Ingresa el primer número: ")
     val num1 = readLine()?.toDoubleOrNull() ?: run {
-        println("Invalid input. Exiting.")
+        println("Entrada no válida. Saliendo.")
         return
     }
-    print("Enter the second number: ")
+    print("Ingresa el segundo número: ")
     val num2 = readLine()?.toDoubleOrNull() ?: run {
-        println("Invalid input. Exiting.")
+        println("Entrada no válida. Saliendo.")
         return
     }
-    print("Select the operation (+, -, *, /): ")
-    val operation = readLine()
-    val result = when (operation) {
+    print("Selecciona la operación (+, -, *, /): ")
+    val operacion = readLine()
+    val resultado = when (operacion) {
         "+" -> num1 + num2
         "-" -> num1 - num2
         "*" -> num1 * num2
-        "/" -> if (num2 != 0.0) num1 / num2 else "Error: Division by zero"
-        else -> "Invalid operation"
+        "/" -> if (num2 != 0.0) num1 / num2 else "Error: División por cero"
+        else -> "Operación no válida"
     }
-    println("Result: $result")
+    println("Resultado: $resultado")
 }
 ```
 
-In this example, the program prompts the user for two numbers and an operation. It then uses a `when` statement to determine the appropriate calculation based on the user's choice.
+En este ejemplo, el programa solicita al usuario dos números y una operación. Luego, usa una declaración `when` para determinar el cálculo apropiado según la elección del usuario.

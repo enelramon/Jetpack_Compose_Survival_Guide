@@ -1,56 +1,63 @@
-# Testing and Debugging in Kotlin
+# Pruebas y Depuración en Kotlin
 
-Efficient testing and debugging are crucial aspects of the development process, enabling you to deliver high-quality software. From unit tests to debugging tools, let's explore the methodologies, best practices, and tools that empower you to write resilient code and troubleshoot issues effectively.
+Las pruebas y la depuración eficientes son aspectos cruciales del proceso de desarrollo, que te permiten entregar software de alta calidad. Desde pruebas unitarias hasta herramientas de depuración, exploremos las metodologías, mejores prácticas y herramientas que te permiten escribir código resistente y solucionar problemas de manera efectiva.
 
-## The Importance of Testing
+## La Importancia de las Pruebas
 
-Testing is an integral part of the software development lifecycle, allowing developers to verify that their code behaves as expected, meets requirements, and remains robust under various scenarios. Let's explore the types of tests and how they contribute to creating reliable Kotlin applications.
+Las pruebas son una parte integral del ciclo de vida del desarrollo de software, permitiendo a los desarrolladores verificar que su código se comporte como se espera, cumpla con los requisitos y se mantenga robusto en diversos escenarios. Exploremos los tipos de pruebas y cómo contribuyen a crear aplicaciones Kotlin confiables.
 
-### Unit Testing: Ensuring Individual Components Work as Expected
+### Pruebas Unitarias: Asegurando que los Componentes Individuales Funcionen como se Espera
 
-Unit testing involves testing individual components or functions in isolation to ensure they perform as intended. In Kotlin, the [JUnit](https://junit.org/junit5/) framework is commonly used for writing unit tests. Let's explore a basic example:
+Las pruebas unitarias implican probar componentes o funciones individuales en aislamiento para asegurar que funcionen como se pretende. En Kotlin, el marco [JUnit](https://junit.org/junit5/) se usa comúnmente para escribir pruebas unitarias. Veamos un ejemplo básico:
 ```kotlin
-// Example Kotlin code for a simple function to be tested157
-fun addNumbers(a: Int, b: Int): Int {
+// Ejemplo de código Kotlin para una función simple a probar
+fun sumarNumeros(a: Int, b: Int): Int {
     return a + b
 }
 ```
-Now, let's write a corresponding unit test:
+Ahora, escribamos una prueba unitaria correspondiente:
 ```kotlin
-// Example Kotlin code for a JUnit test
+// Ejemplo de código Kotlin para una prueba JUnit
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 
-class MathUtilsTest {
+class PruebasMatematicas {
     @Test
-    fun testAddNumbers() {
-        val result = addNumbers(3, 5)
-        assertEquals(8, result)
+    fun probarSumarNumeros() {
+        val resultado = sumarNumeros(3, 5)
+        assertEquals(8, resultado)
     }
 }
 ```
-In this example, the `testAddNumbers` function uses JUnit's `assertEquals` to verify that the `addNumbers` function correctly adds two numbers.
+En este ejemplo, la función `probarSumarNumeros` utiliza `assertEquals` de JUnit para verificar que la función `sumarNumeros` sume correctamente dos números.
 
-### Integration Testing: Verifying Interactions Between Components
+### Pruebas de Integración: Verificando Interacciones entre Componentes
 
-Integration testing involves verifying that different components or modules work together as expected. It ensures that the integrated system functions correctly. In Kotlin, you can use frameworks like JUnit for integration testing as well.
+Las pruebas de integración implican verificar que diferentes componentes o módulos funcionen juntos como se espera. Asegura que el sistema integrado funcione correctamente. En Kotlin, también puedes usar marcos como JUnit para pruebas de integración.
 ```kotlin
-// Example Kotlin code for an integration test
+// Ejemplo de código Kotlin para una prueba de integración
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertTrue
 
-class SystemIntegrationTest {
+class PruebasIntegracionSistema {
     @Test
-    fun testSystemIntegration() {
-        // Simulate an integrated system
-        val result = performIntegratedOperation()
-        assertTrue(result)
+    fun probarIntegracionSistema() {
+        // Simular un sistema integrado
+        val resultado = realizarOperacionIntegrada()
+        assertTrue(resultado)
     }
 
-    private fun performIntegratedOperation(): Boolean {
-        // Simulate an integrated operation
+    private fun realizarOperacionIntegrada(): Boolean {
+        // Simular una operación integrada
         return true
     }
 }
 ```
-In this example, the `testSystemIntegration` function verifies that the `performIntegratedOperation` function returns `true` within an integrated system.
+En este ejemplo, la función `probarIntegracionSistema` verifica que la función `realizarOperacionIntegrada` devuelva `true` dentro de un sistema integrado.
+
+### Usando la Biblioteca Google Truth para Asserts
+
+Google Truth es una biblioteca para realizar afirmaciones (asserts) en pruebas unitarias de una manera más legible y expresiva. Veamos cómo usar Google Truth en Kotlin.
+
+Primero, agrega la dependencia de Google Truth en tu archivo `build.gradle`:
+
