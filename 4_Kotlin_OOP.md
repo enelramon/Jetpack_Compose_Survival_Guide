@@ -1,4 +1,16 @@
 # Programación Orientada a Objetos
+
+## Índice
+1. [Clases y Objetos: Los Bloques de Construcción de la POO](#clases-y-objetos-los-bloques-de-construcción-de-la-poo)
+2. [Constructores: Inicializando Objetos con Facilidad](#constructores-inicializando-objetos-con-facilidad)
+3. [Herencia: Construyendo Jerarquías de Clases](#herencia-construyendo-jerarquías-de-clases)
+4. [Polimorfismo: Abrazando la Diversidad en Tipos](#polimorfismo-abrazando-la-diversidad-en-tipos)
+5. [Encapsulamiento: Protegiendo el Mundo Interior](#encapsulamiento-protegiendo-el-mundo-interior)
+6. [Clases Abstractas e Interfaces: Plano para Tipos](#clases-abstractas-e-interfaces-plano-para-tipos)
+7. [Data Classes: Simplificando la Creación de Clases de Datos](#data-classes-simplificando-la-creación-de-clases-de-datos)
+8. [Sealed Interfaces: Definiendo Jerarquías de Tipos Restringidas](#sealed-interfaces-definiendo-jerarquías-de-tipos-restringidas)
+
+# Programación Orientada a Objetos
 La Programación Orientada a Objetos gira en torno al concepto de objetos, que son instancias de clases, y Kotlin integra estos conceptos perfectamente en su sintaxis. Exploraremos clases, objetos, herencia, polimorfismo, encapsulamiento y más. Vamos a sumergirnos en los fundamentos de la POO y cómo se manifiestan en Kotlin.
 
 ## Clases y Objetos: Los Bloques de Construcción de la POO

@@ -1,5 +1,17 @@
 # Funciones en Kotlin
 
+## Índice
+1. [Definiendo y Llamando](#definiendo-y-llamando)
+2. [Argumentos Predeterminados y Nombrados](#argumentos-predeterminados-y-nombrados)
+3. [Sobrecarga de Funciones](#sobrecarga-de-funciones)
+4. [Funciones de Extensión](#funciones-de-extensión)
+5. [Funciones de Orden Superior](#funciones-de-orden-superior)
+6. [Expresiones Lambda](#expresiones-lambda)
+7. [Funciones Inline](#funciones-inline)
+8. [Funciones Recursivas](#funciones-recursivas)
+9. [Funciones Recursivas de Cola](#funciones-recursivas-de-cola)
+10. [Corrutinas](#corrutinas)
+
 ## Definiendo y Llamando
 
 ¡Bienvenido al fascinante mundo de las funciones en Kotlin! En este capítulo, desentrañaremos el poder y la flexibilidad que las funciones aportan a tus programas en Kotlin. Las funciones sirven como bloques de construcción, permitiéndote descomponer tu código en componentes manejables y reutilizables. Exploraremos cómo definir funciones, pasar parámetros, devolver valores y llamar funciones con diferentes enfoques. Vamos a sumergirnos en el corazón de la programación modular y eficiente en Kotlin.

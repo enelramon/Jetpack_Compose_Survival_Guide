@@ -1,5 +1,12 @@
 # Colecciones en Kotlin: Listas, Mapas y Conjuntos
 
+## Índice
+1. [Listas en Kotlin: Colecciones Ordenadas](#listas-en-kotlin-colecciones-ordenadas)
+2. [Mapas en Kotlin: Pares Clave-Valor](#mapas-en-kotlin-pares-clave-valor)
+3. [Conjuntos en Kotlin: Colecciones Únicas](#conjuntos-en-kotlin-colecciones-únicas)
+4. [Funciones de Colecciones en Kotlin: Más Allá de lo Básico](#funciones-de-colecciones-en-kotlin-más-allá-de-lo-básico)
+5. [Mejores Prácticas para Colecciones en Kotlin](#mejores-prácticas-para-colecciones-en-kotlin)
+
 Las colecciones juegan un papel fundamental en la programación, facilitando el almacenamiento, recuperación y transformación de datos. En este capítulo, profundizaremos en tres tipos fundamentales de colecciones en Kotlin: Listas, Mapas y Conjuntos. Estas estructuras ofrecen capacidades únicas para adaptarse a diversos escenarios en tu viaje de codificación.
 
 ## Listas en Kotlin: Colecciones Ordenadas

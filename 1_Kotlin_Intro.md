@@ -1,5 +1,15 @@
 # Conceptos Básicos de Kotlin: Variables, Tipos de Datos y Operadores
 
+## Índice
+1. [Declaración de Variables](#ejemplo-1-declaración-de-variables)
+2. [Tipos de Datos en Kotlin](#tipos-de-datos-en-kotlin)
+3. [Operadores en Kotlin](#operadores-en-kotlin)
+4. [Flujo de Control: Tomando Decisiones y Bucles](#flujo-de-control-tomando-decisiones-y-bucles)
+5. [Funciones en Kotlin: Definición y Llamada](#funciones-en-kotlin-definición-y-llamada)
+6. [Programación Orientada a Objetos con Kotlin](#programación-orientada-a-objetos-con-kotlin)
+7. [Manejo de Excepciones y Gestión de Errores](#manejo-de-excepciones-y-gestión-de-errores)
+8. [Colecciones en Kotlin: Listas, Mapas y Conjuntos](#colecciones-en-kotlin-listas-mapas-y-conjuntos)
+
 En Kotlin, declarar una variable es muy sencillo. La palabra clave `val` se usa para variables de solo lectura, y `var` para las mutables.
 
 ### Ejemplo 1: Declaración de Variables

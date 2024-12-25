@@ -1,5 +1,16 @@
 # Flujo de Control: Tomando Decisiones y Bucles
 
+## Índice
+1. [Declaraciones Condicionales: Tomando Decisiones Informadas](#declaraciones-condicionales-tomando-decisiones-informadas)
+2. [Bucles: Repitiendo Tareas Eficientemente](#bucles-repitiendo-tareas-eficientemente)
+3. [Rompiendo y Continuando Bucles](#rompiendo-y-continuando-bucles)
+4. [Etiquetando Bucles](#etiquetando-bucles)
+5. [Tomando Decisiones con el Flujo de Control](#tomando-decisiones-con-el-flujo-de-control)
+6. [Flujo de Control Avanzado: `when` con Rangos y Patrones](#flujo-de-control-avanzado-when-con-rangos-y-patrones)
+7. [Manejo de Casos Extremos: `try`, `catch` y
+
+# Flujo de Control: Tomando Decisiones y Bucles
+
 Exploraremos el poder de las declaraciones condicionales, como `if` y `else`, y aprenderemos a crear bucles para iterar a través del código de manera eficiente. Estos constructos son la columna vertebral de la programación dinámica y receptiva, permitiendo que tus aplicaciones en Kotlin se adapten a condiciones cambiantes e interacciones del usuario.
 
 ## Declaraciones Condicionales: Tomando Decisiones Informadas
@@ -258,6 +269,3 @@ fun main() {
     }
     println("Resultado: $resultado")
 }
-```
-
-En este ejemplo, el programa solicita al usuario dos números y una operación. Luego, usa una declaración `when` para determinar el cálculo apropiado según la elección del usuario.

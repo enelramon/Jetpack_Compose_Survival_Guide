@@ -1,5 +1,13 @@
 # Pruebas y Depuración en Kotlin
 
+## Índice
+1. [La Importancia de las Pruebas](#la-importancia-de-las-pruebas)
+2. [Pruebas Unitarias: Asegurando que los Componentes Individuales Funcionen como se Espera](#pruebas-unitarias-asegurando-que-los-componentes-individuales-funcionen-como-se-espera)
+3. [Pruebas de Integración: Verificando Interacciones entre Componentes](#pruebas-de-integración-verificando-interacciones-entre-componentes)
+4. [Usando la Biblioteca Google Truth para Asserts](#usando-la-biblioteca-google-truth-para-asserts)
+
+# Pruebas y Depuración en Kotlin
+
 Las pruebas y la depuración eficientes son aspectos cruciales del proceso de desarrollo, que te permiten entregar software de alta calidad. Desde pruebas unitarias hasta herramientas de depuración, exploremos las metodologías, mejores prácticas y herramientas que te permiten escribir código resistente y solucionar problemas de manera efectiva.
 
 ## La Importancia de las Pruebas

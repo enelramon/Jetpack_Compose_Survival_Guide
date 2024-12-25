@@ -1,5 +1,17 @@
 # Manejo de Excepciones y Gestión de Errores en Kotlin
 
+## Índice
+1. [Entendiendo las Excepciones en Kotlin](#entendiendo-las-excepciones-en-kotlin)
+2. [El Bloque Try-Catch: Protegiendo Tu Código](#el-bloque-try-catch-protegiendo-tu-código)
+3. [La Expresión Throw: Personalizando Mensajes de Error](#la-expresión-throw-personalizando-mensajes-de-error)
+4. [El Tipo `Nothing` de Kotlin: Representando Expresiones No Terminantes](#el-tipo-nothing-de-kotlin-representando-expresiones-no-terminantes)
+5. [Excepciones Verificadas vs. No Verificadas en Kotlin](#excepciones-verificadas-vs-no-verificadas-en-kotlin)
+6. [El Operador Elvis: Simplificando las Comprobaciones de Nulos](#el-operador-elvis-simplificando-las-comprobaciones-de-nulos)
+7. [Corutinas y Manejo de Excepciones](#corutinas-y-manejo-de-excepciones)
+8. [Mejores Prácticas para el Manejo de Excepciones](#mejores-prácticas-para-el-manejo-de-excepciones)
+
+# Manejo de Excepciones y Gestión de Errores en Kotlin
+
 El manejo de excepciones es un aspecto fundamental de la programación moderna, y Kotlin proporciona mecanismos concisos y poderosos para lidiar con varios escenarios que pueden llevar a errores. Exploremos los principios, técnicas y mejores prácticas para el manejo de excepciones en Kotlin.
 
 ## Entendiendo las Excepciones en Kotlin
