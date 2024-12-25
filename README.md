@@ -10,6 +10,7 @@
    1. [Kotlin OOP](#kotlin-oop)
    1. [Kotlin Exception Handling](#)
    1. [Kotlin Collections](#)
+   1. [Kotlin Testing](#)
 1. [Errores comunes](#errores-comunes)
    1. [Configuración del entorno](#configuración-del-entorno)
    1. [Problemas de diseño en UI](#problemas-de-diseño-en-ui)
