@@ -29,7 +29,8 @@ if (temperatura > 30) {
     println("Hace un poco de frío.")
 }
 ```
-<iframe src="https://pl.kotl.in/LYCtkPcai"></iframe>
+[Ejecutar en playgroud](https://pl.kotl.in/KJER4UExC)
+
 
 En este ejemplo, el programa evalúa la temperatura e imprime un mensaje en consecuencia. El bloque `else if` permite múltiples condiciones, proporcionando un proceso de toma de decisiones más matizado.
 
