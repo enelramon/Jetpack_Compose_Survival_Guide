@@ -47,6 +47,7 @@ when (diaDeLaSemana) {
     else -> println("Otro día más.")
 }
 ```
+[Ejecutar en playgroud](https://pl.kotl.in/gSkpG2wmH)
 
 Aquí, la declaración `when` verifica el valor de `diaDeLaSemana` e imprime un mensaje basado en la condición coincidente. El bloque `else` sirve como respaldo para cualquier valor no coincidente.
 
