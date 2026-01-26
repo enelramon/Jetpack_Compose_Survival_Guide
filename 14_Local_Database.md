@@ -208,7 +208,7 @@ data class TaskEntity(
 interface TaskDao { 
     @Upsert
     suspend fun upsert(entity: TaskEntity)
-    
+     
     @Delete
     suspend fun delete(entity: TaskEntity)
     
@@ -239,43 +239,26 @@ abstract class TaskDatabase : RoomDatabase() {
 class TaskRepositoryImpl @Inject constructor(
     private val localDataSource: TaskDao
 ) : TaskRepository {
+
     override fun observeTasks(): Flow<List<Task>> {
         return localDataSource.observeTasks().map { entities ->
             entities.map { it.toDomain() }
         }
     }
 
-    override suspend fun getTask(id: String): Task? {
+    override suspend fun getTask(id: Int): Task? {
         return localDataSource.getTask(id)?.toDomain()
     }
 
-    override suspend fun createTask(task: Task): Resource<Task> {
-        return try {
-            localDataSource.upsert(task.toEntity())
-            Resource.Success(task)
-        } catch (e: Exception) {
-            Resource.Error(e.localizedMessage ?: "Error al crear tarea")
-        }
+    override suspend fun upsert(task: Task): Int {
+        return localDataSource.upsert(task.toEntity()).toInt()
     }
 
-    override suspend fun updateTask(task: Task): Resource<Unit> {
-        return try {
-            localDataSource.upsert(task.toEntity())
-            Resource.Success(Unit)
-        } catch (e: Exception) {
-            Resource.Error(e.localizedMessage ?: "Error al actualizar tarea")
-        }
-    }
-
-    override suspend fun deleteTask(id: String): Resource<Unit> {
-        return try {
-            localDataSource.delete(id)
-            Resource.Success(Unit)
-        } catch (e: Exception) {
-            Resource.Error(e.localizedMessage ?: "Error al eliminar tarea")
-        }
+    override suspend fun delete(id: Int) {
+        localDataSource.delete(id)
     }
 }
+
 
 // Mappers
 fun TaskEntity.toDomain(): Task = Task(
