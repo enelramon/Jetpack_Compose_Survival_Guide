@@ -781,6 +781,12 @@ fun TaskFormScreen(
                 minLines = 3,
                 maxLines = 5
             )
+              if (state.descripcionError != null) {
+                Text(
+                    state.descripcionError,
+                    color = MaterialTheme.colorScheme.error
+                )
+              }
 
             OutlinedTextField(
                 value = state.tiempo,
