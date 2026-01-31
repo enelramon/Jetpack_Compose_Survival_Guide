@@ -801,6 +801,14 @@ fun TaskFormScreen(
                 singleLine = true
             )
 
+if (state.tiempoError != null) {
+                Text(
+                    state.tiempoError,
+                    color = MaterialTheme.colorScheme.error
+                )
+              }
+
+
             Button(
                 onClick = { viewModel.onEvent(TaskFormUiEvent.Save) },
                 modifier = Modifier
