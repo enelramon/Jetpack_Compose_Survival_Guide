@@ -781,6 +781,12 @@ fun TaskFormScreen(
                 minLines = 3,
                 maxLines = 5
             )
+              if (state.descripcionError != null) {
+                Text(
+                    state.descripcionError,
+                    color = MaterialTheme.colorScheme.error
+                )
+              }
 
             OutlinedTextField(
                 value = state.tiempo,
@@ -794,6 +800,14 @@ fun TaskFormScreen(
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 singleLine = true
             )
+
+if (state.tiempoError != null) {
+                Text(
+                    state.tiempoError,
+                    color = MaterialTheme.colorScheme.error
+                )
+              }
+
 
             Button(
                 onClick = { viewModel.onEvent(TaskFormUiEvent.Save) },
