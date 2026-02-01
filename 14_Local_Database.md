@@ -190,7 +190,48 @@ sequenceDiagram
 ```
 
 ---
+---
+## 📁 Organizacion del Proyecto
+```text
+composedemo/
+├── 💾 data/
+│   └── 📋 tareas/
+│       ├── 🗄️ local/
+│       │   ├── TaskDao.kt
+│       │   └── TaskEntity.kt
+│       ├── 🔄 mapper/
+│       │   └── TaskMapper.kt
+│       └── 📦 repository/
+│           └── TaskRepositoryImpl.kt
+├── 💉 di/
+│   ├── AppModule.kt
+│   
+├── 🎯 domain/
+│   └── 📋 tareas/
+│       ├── 📝 model/
+│       │   └── Task.kt ⭐ (Modelo de dominio principal)
+│       ├── 🔌 repository/
+│       │   └── TaskRepository.kt
+│       └── ⚙️ usecase/
+│           ├── ❌ DeleteTaskUseCase.kt
+│           ├── 🔍 GetTaskUseCase.kt
+│           ├── 👀 ObserveTasksUseCase.kt
+│           └── 💾 UpsertTaskUseCase.kt
+└── 🎨 presentation/
+    └── 📋 tareas/
+        ├── ✏️ edit/
+        │   ├── 📱 EditTaskScreen.kt
+        │   ├── 🎬 EditTaskUiEvent.kt
+        │   ├── 📊 EditTaskUiState.kt
+        │   └── 🧠 EditTaskViewModel.kt
+        └── 📜 list/
+            ├── 📱 ListTaskScreen.kt
+            ├── 🎬 ListTaskUiEvent.kt
+            ├── 📊 ListTaskUiState.kt
+            └── 🧠 ListTaskViewModel.kt
 
+```
+---
 ## 🧩 Capa de Datos
 
 ### 🗃️ Room
