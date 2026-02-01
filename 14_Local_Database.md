@@ -258,9 +258,12 @@ interface TaskDao {
     
     @Query("SELECT * FROM tasks WHERE tareaId = :id")
     suspend fun getById(id: Int): TaskEntity?
-
+    
     @Query("DELETE FROM tasks WHERE tareaId = :id")
     suspend fun deleteById(id: Int)
+    
+    @Query("SELECT EXISTS(SELECT 1 FROM tasks WHERE tareaId = :id)")
+    suspend fun exists(id: Int): Boolean
 }
 
 @Database(
@@ -280,23 +283,27 @@ abstract class TaskDatabase : RoomDatabase() {
 class TaskRepositoryImpl @Inject constructor(
     private val localDataSource: TaskDao
 ) : TaskRepository {
-
     override fun observeTasks(): Flow<List<Task>> {
-        return localDataSource.observeTasks().map { entities ->
+        return localDataSource.observeAll().map { entities ->
             entities.map { it.toDomain() }
         }
     }
-
+    
     override suspend fun getTask(id: Int): Task? {
-        return localDataSource.getTask(id)?.toDomain()
+        return localDataSource.getById(id)?.toDomain()
     }
-
+    
     override suspend fun upsert(task: Task): Int {
-        return localDataSource.upsert(task.toEntity()).toInt()
+        localDataSource.upsert(task.toEntity())
+        return task.tareaId ?: 0
+    }
+    
+    override suspend fun delete(id: Int) {
+        localDataSource.deleteById(id)
     }
 
-    override suspend fun delete(id: Int) {
-        localDataSource.delete(id)
+    override suspend fun exists(id: Int): Boolean {
+        return localDataSource.exists(id)
     }
 }
 
@@ -337,6 +344,7 @@ interface TaskRepository {
     suspend fun getTask(id: Int): Task?
     suspend fun upsert(task: Task): Int
     suspend fun delete(id: Int)
+    suspend fun exists(id: Int): Boolean 
 }
 ```
 
@@ -675,8 +683,8 @@ class TaskFormViewModel @Inject constructor(
     private val deleteTaskUseCase: DeleteTaskUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-
-    private val taskId: Int = savedStateHandle["taskId"] ?: 0
+    private val routeArgs = savedStateHandle.toRoute<Routes.EditTaskScreen>()
+    private val taskId: Int = routeArgs.taskId
 
     private val _state = MutableStateFlow(TaskFormUiState())
     val state: StateFlow<TaskFormUiState> = _state.asStateFlow()
