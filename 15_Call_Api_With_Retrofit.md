@@ -1,6 +1,5 @@
 
-# 🐉 Guía Paso a Paso – Dragon Ball App  
-## Jetpack Compose · ViewModel · Navegación
+# 🐉 Habla con tu API usando Retrofit 
 
 ---
 
