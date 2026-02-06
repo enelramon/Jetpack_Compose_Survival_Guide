@@ -22,7 +22,7 @@ Agregar el permiso de internet en el archivo `AndroidManifest.xml`.
 
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
-
+```
 
 ---
 
