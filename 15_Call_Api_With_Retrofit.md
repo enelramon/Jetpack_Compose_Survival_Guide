@@ -49,7 +49,7 @@ data class DragonBallCharacter(
 
 Crear una clase para representar los estados de una operación.
 
-```
+```kotlin
 sealed class Resource<T>(
     val data: T? = null,
     val message: String? = null
@@ -66,7 +66,7 @@ sealed class Resource<T>(
 
 Definir los endpoints para obtener los datos desde internet.
 
-```
+```kotlin
 interface DragonBallApi {
 
     @GET("characters")
@@ -84,14 +84,14 @@ interface DragonBallApi {
     ): Response<CharacterDto>
 }
 
-```
+```kotlin
 ---
 
 🧾 Paso 6: DTOs
 
 Clases que representan la respuesta de la API.
 
-```
+```kotlin
 data class CharacterResponseDto(
     val items: List<CharacterDto>
 )
@@ -118,7 +118,7 @@ data class CharacterDto(
 
 Clase que representa el estado visible de la pantalla principal.
 
-```
+```kotlin
 data class ListUiState(
     val isLoading: Boolean = false,
     val characters: List<DragonBallCharacter> = emptyList(),
@@ -134,7 +134,7 @@ data class ListUiState(
 🎯 Paso 8: Eventos de la Pantalla
 
 Eventos que se generan desde la interfaz.
-```
+```kotlin
 sealed interface ListEvent {
 
     data class UpdateFilters(
@@ -152,7 +152,7 @@ sealed interface ListEvent {
 🧠 Paso 9: ViewModel de Lista
 
 Clase encargada de manejar el estado y responder a los eventos.
-```
+```kotlin
 @HiltViewModel
 class ListViewModel @Inject constructor(
     private val getCharactersUseCase: GetCharactersUseCase
@@ -221,7 +221,7 @@ class ListViewModel @Inject constructor(
 🎨 Paso 10: Screen de Lista
 
 Pantalla que muestra filtros y lista de personajes.
-```
+```kotlin
 @Composable
 fun ListScreen(
     state: ListUiState,
@@ -275,7 +275,7 @@ fun ListScreen(
 ---
 
 🧩 Paso 11: Item de Personaje
-```
+```kotlin
 @Composable
 fun CharacterItem(
     character: DragonBallCharacter,
@@ -311,7 +311,7 @@ fun CharacterItem(
 ---
 
 🔍 Paso 12: ViewModel de Detalle
-```
+```kotlin
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     private val getCharacterDetailUseCase: GetCharacterDetailUseCase,
@@ -357,7 +357,7 @@ class DetailViewModel @Inject constructor(
 ---
 
 📄 Paso 13: Screen de Detalle
-```
+```kotlin
 @Composable
 fun DetailScreen(
     state: DetailUiState,
