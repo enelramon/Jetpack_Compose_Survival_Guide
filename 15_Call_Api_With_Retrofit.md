@@ -30,6 +30,7 @@ Agregar el permiso de internet en el archivo `AndroidManifest.xml`.
 
 Crear la clase que representa un personaje.
 
+```
 data class DragonBallCharacter(
     val id: Int,
     val name: String,
@@ -40,7 +41,7 @@ data class DragonBallCharacter(
     val image: String,
     val maxKi: String
 )
-
+```
 
 ---
 
@@ -48,6 +49,7 @@ data class DragonBallCharacter(
 
 Crear una clase para representar los estados de una operación.
 
+```
 sealed class Resource<T>(
     val data: T? = null,
     val message: String? = null
@@ -56,7 +58,7 @@ sealed class Resource<T>(
     class Error<T>(message: String) : Resource<T>(null, message)
     class Loading<T> : Resource<T>()
 }
-
+```
 
 ---
 
@@ -64,6 +66,7 @@ sealed class Resource<T>(
 
 Definir los endpoints para obtener los datos desde internet.
 
+```
 interface DragonBallApi {
 
     @GET("characters")
@@ -81,13 +84,14 @@ interface DragonBallApi {
     ): Response<CharacterDto>
 }
 
-
+```
 ---
 
 🧾 Paso 6: DTOs
 
 Clases que representan la respuesta de la API.
 
+```
 data class CharacterResponseDto(
     val items: List<CharacterDto>
 )
@@ -107,13 +111,14 @@ data class CharacterDto(
     )
 }
 
-
+```
 ---
 
 🧠 Paso 7: Estado de la Pantalla de Lista
 
 Clase que representa el estado visible de la pantalla principal.
 
+```
 data class ListUiState(
     val isLoading: Boolean = false,
     val characters: List<DragonBallCharacter> = emptyList(),
@@ -122,14 +127,14 @@ data class ListUiState(
     val filterGender: String = "",
     val filterRace: String = ""
 )
-
+```
 
 ---
 
 🎯 Paso 8: Eventos de la Pantalla
 
 Eventos que se generan desde la interfaz.
-
+```
 sealed interface ListEvent {
 
     data class UpdateFilters(
@@ -140,14 +145,14 @@ sealed interface ListEvent {
 
     data object Search : ListEvent
 }
-
+```
 
 ---
 
 🧠 Paso 9: ViewModel de Lista
 
 Clase encargada de manejar el estado y responder a los eventos.
-
+```
 @HiltViewModel
 class ListViewModel @Inject constructor(
     private val getCharactersUseCase: GetCharactersUseCase
@@ -209,14 +214,14 @@ class ListViewModel @Inject constructor(
         }
     }
 }
-
+```
 
 ---
 
 🎨 Paso 10: Screen de Lista
 
 Pantalla que muestra filtros y lista de personajes.
-
+```
 @Composable
 fun ListScreen(
     state: ListUiState,
@@ -265,12 +270,12 @@ fun ListScreen(
         }
     }
 }
-
+```
 
 ---
 
 🧩 Paso 11: Item de Personaje
-
+```
 @Composable
 fun CharacterItem(
     character: DragonBallCharacter,
@@ -302,11 +307,11 @@ fun CharacterItem(
     }
 }
 
-
+```
 ---
 
 🔍 Paso 12: ViewModel de Detalle
-
+```
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     private val getCharacterDetailUseCase: GetCharacterDetailUseCase,
@@ -347,12 +352,12 @@ class DetailViewModel @Inject constructor(
         }
     }
 }
-
+```
 
 ---
 
 📄 Paso 13: Screen de Detalle
-
+```
 @Composable
 fun DetailScreen(
     state: DetailUiState,
@@ -396,3 +401,4 @@ fun DetailScreen(
         }
     }
 }
+```
