@@ -30,7 +30,7 @@ Agregar el permiso de internet en el archivo `AndroidManifest.xml`.
 
 Crear la clase que representa un personaje.
 
-```
+```kotlin
 data class DragonBallCharacter(
     val id: Int,
     val name: String,
