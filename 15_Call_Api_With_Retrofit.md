@@ -84,7 +84,7 @@ interface DragonBallApi {
     ): Response<CharacterDto>
 }
 
-```kotlin
+```
 ---
 
 🧾 Paso 6: DTOs
