@@ -28,22 +28,23 @@ Agregar el permiso de internet en el archivo `AndroidManifest.xml`.
 
 ##  Paso 3: Dependencias
 
-```kotlin
 Agregar estas dependencias en el archvo `build.gradle.kts (Module :app)`.
 
+```kotlin
 // Retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.kotlinx.serialization.json)
 
 Y agregar estas en el archivo `libs.versions.toml`.
-
-[versions]
+```
+```kotlin
+// [versions]
 kotlinSerializationJson = "1.10.0"
 retrofit2KotlinxSerializationConverter = "1.0.0"
 retrofit = "3.0.0"
 
-[libraries]
+// [libraries]
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit2-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2KotlinxSerializationConverter" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerializationJson" }
