@@ -12,7 +12,7 @@ Crear una aplicación Android que muestre personajes de Dragon Ball, permita bus
 ## 🪜 Paso 1: Crear el Proyecto
 
 1. Crear un proyecto Android con **Empty Compose Activity**.
-2. Ejecutar la aplicación para verificar que funcione correctamente.
+1. Ejecutar la aplicación para verificar que funcione correctamente.
 
 ---
 
