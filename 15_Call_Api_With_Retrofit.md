@@ -26,7 +26,33 @@ Agregar el permiso de internet en el archivo `AndroidManifest.xml`.
 
 ---
 
-📦 Paso 3: Modelo de Datos
+##  Paso 3: Dependencias
+
+```kotlin
+Agregar estas dependencias en el archvo `build.gradle.kts (Module :app)`.
+
+// Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
+    implementation(libs.kotlinx.serialization.json)
+
+Y agregar estas en el archivo `libs.versions.toml`.
+
+[versions]
+kotlinSerializationJson = "1.10.0"
+retrofit2KotlinxSerializationConverter = "1.0.0"
+retrofit = "3.0.0"
+
+[libraries]
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit2-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2KotlinxSerializationConverter" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerializationJson" }
+
+```
+
+---
+
+## 📦 Paso 4: Modelo de Datos
 
 Crear la clase que representa un personaje.
 
@@ -45,7 +71,7 @@ data class DragonBallCharacter(
 
 ---
 
-🔄 Paso 4: Estados de Carga
+🔄 Paso 5: Estados de Carga
 
 Crear una clase para representar los estados de una operación.
 
@@ -62,7 +88,7 @@ sealed class Resource<T>(
 
 ---
 
-📡 Paso 5: Interfaz de la API
+📡 Paso 6: Interfaz de la API
 
 Definir los endpoints para obtener los datos desde internet.
 
@@ -87,7 +113,7 @@ interface DragonBallApi {
 ```
 ---
 
-🧾 Paso 6: DTOs
+🧾 Paso 7: DTOs
 
 Clases que representan la respuesta de la API.
 
@@ -114,7 +140,7 @@ data class CharacterDto(
 ```
 ---
 
-🧠 Paso 7: Estado de la Pantalla de Lista
+🧠 Paso 8: Estado de la Pantalla de Lista
 
 Clase que representa el estado visible de la pantalla principal.
 
@@ -131,7 +157,7 @@ data class ListUiState(
 
 ---
 
-🎯 Paso 8: Eventos de la Pantalla
+🎯 Paso 9: Eventos de la Pantalla
 
 Eventos que se generan desde la interfaz.
 ```kotlin
@@ -149,7 +175,7 @@ sealed interface ListEvent {
 
 ---
 
-🧠 Paso 9: ViewModel de Lista
+🧠 Paso 10: ViewModel de Lista
 
 Clase encargada de manejar el estado y responder a los eventos.
 ```kotlin
@@ -218,7 +244,7 @@ class ListViewModel @Inject constructor(
 
 ---
 
-🎨 Paso 10: Screen de Lista
+🎨 Paso 111: Screen de Lista
 
 Pantalla que muestra filtros y lista de personajes.
 ```kotlin
@@ -274,7 +300,7 @@ fun ListScreen(
 
 ---
 
-🧩 Paso 11: Item de Personaje
+🧩 Paso 12: Item de Personaje
 ```kotlin
 @Composable
 fun CharacterItem(
@@ -310,7 +336,7 @@ fun CharacterItem(
 ```
 ---
 
-🔍 Paso 12: ViewModel de Detalle
+🔍 Paso 13: ViewModel de Detalle
 ```kotlin
 @HiltViewModel
 class DetailViewModel @Inject constructor(
@@ -356,7 +382,7 @@ class DetailViewModel @Inject constructor(
 
 ---
 
-📄 Paso 13: Screen de Detalle
+📄 Paso 14: Screen de Detalle
 ```kotlin
 @Composable
 fun DetailScreen(
