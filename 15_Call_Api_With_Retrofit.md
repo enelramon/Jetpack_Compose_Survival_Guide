@@ -36,8 +36,9 @@ Agregar estas dependencias en el archvo `build.gradle.kts (Module :app)`.
     implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.kotlinx.serialization.json)
 
-Y agregar estas en el archivo `libs.versions.toml`.
 ```
+Y agregar estas en el archivo `libs.versions.toml`.
+
 ```kotlin
 // [versions]
 kotlinSerializationJson = "1.10.0"
