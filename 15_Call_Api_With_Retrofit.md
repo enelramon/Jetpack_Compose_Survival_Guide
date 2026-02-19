@@ -288,6 +288,7 @@ sealed interface ListEvent {
 
 Clase encargada de manejar el estado y responder a los eventos.
 ```kotlin
+
 @HiltViewModel
 class ListViewModel @Inject constructor(
     private val getCharactersUseCase: GetCharactersUseCase
@@ -344,7 +345,7 @@ class ListViewModel @Inject constructor(
                         )
                     }
 
-                is Resource.Loading -> Unit //  _state.update { it.copy(isLoading = true)
+                is Resource.Loading -> _state.update { it.copy(isLoading = true) }
             }
         }
     }
@@ -357,12 +358,27 @@ class ListViewModel @Inject constructor(
 
 Pantalla que muestra filtros y lista de personajes.
 ```kotlin
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListScreen(
-    state: ListUiState,
-    onFilterChange: (String, String, String) -> Unit,
-    onSearch: () -> Unit,
+    viewModel: ListViewModel = hiltViewModel(),
     onCharacterClick: (Int) -> Unit
+) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    ListBodyScreen(
+        state = state,
+        onEvent = viewModel::onEvent,
+        onCharacterClick = onCharacterClick
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ListBodyScreen(
+    state: ListUiState,
+    onEvent: (ListEvent) -> Unit,
+    onCharacterClick: (Int) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -382,8 +398,7 @@ fun ListScreen(
                 name = state.filterName,
                 gender = state.filterGender,
                 race = state.filterRace,
-                onFilterChange = onFilterChange,
-                onSearch = onSearch
+                onEvent = onEvent,
             )
 
             if (state.isLoading) {
@@ -400,8 +415,100 @@ fun ListScreen(
                         character = character,
                         onClick = { onCharacterClick(character.id) }
                     )
+                    Spacer(modifier = Modifier.height(4.dp))
                 }
             }
+        }
+    }
+}
+
+
+@Composable
+fun FilterSection(
+    name: String,
+    gender: String,
+    race: String,
+    onEvent: (ListEvent) -> Unit,
+) {
+
+    ElevatedCard(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth(),
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            OutlinedTextField(
+                value = name,
+                onValueChange = { onEvent(ListEvent.UpdateFilters(it, gender, race)) },
+                label = { Text("Nombre (ej. Goku)") },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                OutlinedTextField(
+                    value = gender,
+                    onValueChange = { onEvent(ListEvent.UpdateFilters(name, it, race)) },
+                    label = { Text("Género") },
+                    modifier = Modifier.weight(1f)
+                )
+                OutlinedTextField(
+                    value = race,
+                    onValueChange = { onEvent(ListEvent.UpdateFilters(name, gender, it)) },
+                    label = { Text("Raza") },
+                    modifier = Modifier.weight(1f)
+                )
+            }
+
+            Button(
+                onClick = { onEvent(ListEvent.Search) },
+                modifier = Modifier.align(Alignment.End)
+            ) {
+                Text("Buscar")
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ListBodyScreenPreview() {
+    val sampleCharacters = listOf(
+        DragonBallCharacter(
+            id = 1,
+            name = "Goku",
+            ki = "60.000.000",
+            race = "Saiyan",
+            gender = "Male",
+            description = "The main protagonist of the series.",
+            image = "",
+            maxKi = "90.000.000.000"
+        ),
+        DragonBallCharacter(
+            id = 2,
+            name = "Vegeta",
+            ki = "50.000.000",
+            race = "Saiyan",
+            gender = "Male",
+            description = "The prince of all Saiyans.",
+            image = "",
+            maxKi = "80.000.000.000"
+        )
+    )
+    val state = ListUiState(
+        characters = sampleCharacters,
+        filterName = "Goku"
+    )
+
+    DragonBallAppTheme {
+        Surface {
+            ListBodyScreen(
+                state = state,
+                onEvent = {},
+                onCharacterClick = {}
+            )
         }
     }
 }
@@ -536,4 +643,5 @@ fun DetailScreen(
         }
     }
 }
+// Agrega el preview
 ```
