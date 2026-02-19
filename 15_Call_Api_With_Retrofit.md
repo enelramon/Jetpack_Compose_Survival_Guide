@@ -159,6 +159,60 @@ data class CharacterDto(
 }
 
 ```
+## Repository (Domamin)
+```kotlin
+interface CharacterRepository {
+    suspend fun getCharacters(
+        page: Int,
+        limit: Int,
+        name: String?,   
+        gender: String?, 
+        race: String?,    
+    ): Resource<List<DragonBallCharacter>>
+
+    suspend fun getCharacterDetail(id: Int): Resource<DragonBallCharacter>
+}
+```
+## Repository Implementation
+```kotlin
+
+class CharacterRepositoryImpl @Inject constructor(
+    private val api: DragonBallApi
+) : CharacterRepository {
+
+    override suspend fun getCharacters(
+        page: Int, limit: Int, name: String?, gender: String?, race: String?
+    ): Resource<List<DragonBallCharacter>> {
+        return try {
+            // Pasamos los filtros a la API
+            val response = api.getCharacters(page, limit, name, gender, race)
+            
+            if (response.isSuccessful && response.body() != null) {
+                // Transformamos DTO -> Dominio
+                val data = response.body()!!.items.map { it.toDomain() }
+                Resource.Success(data)
+            } else {
+                Resource.Error("Error servidor: ${response.message()}")
+            }
+        } catch (e: Exception) {
+            Resource.Error("Error conexión: ${e.localizedMessage}")
+        }
+    }
+
+    override suspend fun getCharacterDetail(id: Int): Resource<DragonBallCharacter> {
+        return try {
+            val response = api.getCharacterDetail(id)
+            if (response.isSuccessful && response.body() != null) {
+                Resource.Success(response.body()!!.toDomain())
+            } else {
+                Resource.Error("Personaje no encontrado")
+            }
+        } catch (e: Exception) {
+            Resource.Error("Error: ${e.message}")
+        }
+    }
+}
+```
 
 ---
 ## 📦 Paso 7: Modelo de Datos
