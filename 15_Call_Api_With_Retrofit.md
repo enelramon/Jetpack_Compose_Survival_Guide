@@ -32,9 +32,11 @@ Agregar estas dependencias en el archvo `build.gradle.kts (Module :app)`.
 
 ```kotlin
 // Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.retrofit2.kotlinx.serialization.converter)
-    implementation(libs.kotlinx.serialization.json)
+implementation(libs.retrofit)
+implementation(libs.retrofit2.kotlinx.serialization.converter)
+implementation(libs.kotlinx.serialization.json)
+implementation(libs.squareup.moshi.kotlin)
+implementation(libs.converter.moshi)
 
 ```
 Y agregar estas en el archivo `libs.versions.toml`.
@@ -44,12 +46,48 @@ Y agregar estas en el archivo `libs.versions.toml`.
 kotlinSerializationJson = "1.10.0"
 retrofit2KotlinxSerializationConverter = "1.0.0"
 retrofit = "3.0.0"
+moshiKotlin = "1.15.2"
+converterMoshi = "3.0.0"
 
 // [libraries]
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit2-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2KotlinxSerializationConverter" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerializationJson" }
+converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "converterMoshi" }
+squareup-moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshiKotlin" }
 
+
+```
+---
+## Dependency Injection
+```kotlin
+
+    @Singleton
+    @Provides
+    fun provideMoshi(): Moshi {
+        return Moshi
+            .Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideApi(moshi: Moshi): DragonBallApi {
+        val json = Json { ignoreUnknownKeys = true }
+        return Retrofit.Builder()
+            .baseUrl("https://dragonball-api.com/api/")
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            //.addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+            .build()
+            .create(DragonBallApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRepository(api: DragonBallApi): CharacterRepository {
+        return CharacterRepositoryImpl(api)
+    }
 ```
 
 ---
