@@ -37,7 +37,6 @@ implementation(libs.retrofit2.kotlinx.serialization.converter)
 implementation(libs.kotlinx.serialization.json)
 implementation(libs.squareup.moshi.kotlin)
 implementation(libs.converter.moshi)
-
 ```
 Y agregar estas en el archivo `libs.versions.toml`.
 
@@ -55,13 +54,12 @@ retrofit2-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerializationJson" }
 converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "converterMoshi" }
 squareup-moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshiKotlin" }
-
-
 ```
+
 ---
 ## Dependency Injection
+`di/AppModule.kt`
 ```kotlin
-
     @Singleton
     @Provides
     fun provideMoshi(): Moshi {
@@ -96,6 +94,7 @@ squareup-moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.re
 
 Crear una clase para representar los estados de una operación.
 
+`remote\Resource.kt`
 ```kotlin
 sealed class Resource<T>(
     val data: T? = null,
@@ -108,11 +107,55 @@ sealed class Resource<T>(
 ```
 
 ---
+## 📦 Paso 5: Modelo de Datos
 
-## 📡 Paso 5: Interfaz de la API
+Crear la clase que representa un personaje.
+`domain\model\Character.kt`
+```kotlin
+data class Character(
+    val id: Int,
+    val name: String,
+    val ki: String,
+    val race: String,
+    val gender: String,
+    val description: String,
+    val image: String,
+    val maxKi: String
+)
+```
+---
+
+## 🧾 Paso 6: DTOs
+
+Clases que representan la respuesta de la API.
+
+`remote\CharacterResponseDto.kt`
+```kotlin
+data class CharacterResponseDto(
+    val items: List<CharacterDto>
+)
+
+data class CharacterDto(
+    val id: Int,
+    val name: String,
+    val ki: String,
+    val race: String,
+    val gender: String,
+    val description: String,
+    val image: String,
+    val maxKi: String,
+) {
+    fun toDomain() = Character(
+        id, name, ki, race, gender, description, image, maxKi,
+    )
+}
+
+---
+
+## 📡 Paso 7: Interfaz de la API
 
 Definir los endpoints para obtener los datos desde internet.
-
+`remote\NombreDeTuApi.kt`
 ```kotlin
 interface DragonBallApi {
 
@@ -134,32 +177,9 @@ interface DragonBallApi {
 ```
 ---
 
-## 🧾 Paso 6: DTOs
-
-Clases que representan la respuesta de la API.
-
-```kotlin
-data class CharacterResponseDto(
-    val items: List<CharacterDto>
-)
-
-data class CharacterDto(
-    val id: Int,
-    val name: String,
-    val ki: String,
-    val race: String,
-    val gender: String,
-    val description: String,
-    val image: String,
-    val maxKi: String,
-) {
-    fun toDomain() = DragonBallCharacter(
-        id, name, ki, race, gender, description, image, maxKi,
-    )
-}
-
 ```
-## Repository (Domamin)
+## Paso 8: Repository (Domamin)
+`domain\repository\CharacterRepository.kt`
 ```kotlin
 interface CharacterRepository {
     suspend fun getCharacters(
@@ -168,18 +188,19 @@ interface CharacterRepository {
         name: String?,   
         gender: String?, 
         race: String?,    
-    ): Resource<List<DragonBallCharacter>>
+    ): Resource<List<Character>>
 
-    suspend fun getCharacterDetail(id: Int): Resource<DragonBallCharacter>
+    suspend fun getCharacterDetail(id: Int): Resource<Character>
 }
 ```
 --- 
-## Usecases
+## Paso 9: Usecases
+`domain\usecase\GetCharactersUseCase.kt`
 ```kotlin
 class GetCharactersUseCase @Inject constructor(
     private val repository: CharacterRepository
 ) {
-    suspend operator fun invoke(
+    operator fun invoke(
         page: Int = 1,
         limit: Int = 10,
         name: String? = null,
@@ -188,75 +209,99 @@ class GetCharactersUseCase @Inject constructor(
     ) = repository.getCharacters(page, limit, name, gender, race)
 }
 ```
+## Paso 10: RemoteDataSource
+`data\remote\remotedatasource\CharacterRemoteDataSource.kt`
 
-## Repository Implementation
 ```kotlin
-
-class CharacterRepositoryImpl @Inject constructor(
+class CharacterRemoteDataSource @Inject constructor(
     private val api: DragonBallApi
-) : CharacterRepository {
-
-    override suspend fun getCharacters(
-        page: Int, limit: Int, name: String?, gender: String?, race: String?
-    ): Resource<List<DragonBallCharacter>> {
-        return try {
-            // Pasamos los filtros a la API
+) {
+    
+    suspend fun getCharacters( 
+        page: Int,
+        limit: Int,
+        name: String?,   
+        gender: String?, 
+        race: String?,  
+    ): Result<CharacterResponseDto> {
+        try {
             val response = api.getCharacters(page, limit, name, gender, race)
-            
-            if (response.isSuccessful && response.body() != null) {
-                // Transformamos DTO -> Dominio
-                val data = response.body()!!.items.map { it.toDomain() }
-                Resource.Success(data)
-            } else {
-                Resource.Error("Error servidor: ${response.message()}")
+            if (!response.isSuccessful) {
+                return Result.failure(Exception("Error de red ${response.code()}"))
             }
+            return Result.success(response.body()!!)
+        } catch (e: HttpException) {
+            return Result.failure(Exception("Error de servidor", e))
         } catch (e: Exception) {
-            Resource.Error("Error conexión: ${e.localizedMessage}")
+            return Result.failure(Exception("Error desconocido", e))
         }
     }
 
-    override suspend fun getCharacterDetail(id: Int): Resource<DragonBallCharacter> {
-        return try {
+    suspend fun getCharacterDetail(id: Int): Result<CharacterDto> {
+        try {
             val response = api.getCharacterDetail(id)
-            if (response.isSuccessful && response.body() != null) {
-                Resource.Success(response.body()!!.toDomain())
-            } else {
-                Resource.Error("Personaje no encontrado")
+            if (!response.isSuccessful) {
+                return Result.failure(Exception("Error de red ${response.code()}"))
             }
+            return Result.success(response.body()!!)
+        } catch (e: HttpException) {
+            return Result.failure(Exception("Error de servidor", e))
         } catch (e: Exception) {
-            Resource.Error("Error: ${e.message}")
+            return Result.failure(Exception("Error desconocido", e))
+        }
+    }
+}
+```
+
+## Paso 10: Repository Implementation (IMPORTANTE: De aqui en adelante me cambioa Planet esto es un ejemplo)
+
+`data\repository\PlanetRepositoryImpl.kt`
+
+```kotlin
+
+class PlanetRepositoryImpl @Inject constructor(
+    private val remoteDataSource: PlanetRemoteDataSource
+) : PlanetRepository {
+
+    override fun getPlanets(
+        page: Int,
+        limit: Int,
+        name: String?
+    ): Flow<Resource<List<Planet>>> = flow {
+
+        emit(Resource.Loading())
+
+        val response = remoteDataSource.getPlanets(page, limit, name)
+        response.onSuccess { planets ->
+            emit(Resource.Success(planets.items.map { it.toDomain() }))
+        }.onFailure {
+            emit(Resource.Error(it.message ?: "Error desconocido"))
+        }
+    }
+
+     override fun getPlanetDetail(id: Int): Flow<Resource<Planet>> = flow {
+        emit(Resource.Loading())
+
+        val response = remoteDataSource.getPlanetDetail(id)
+        response.onSuccess { planets ->
+            emit(Resource.Success(planets.toDomain() ))
+        }.onFailure {
+            emit(Resource.Error(it.message ?: "Error desconocido"))
         }
     }
 }
 ```
 
 ---
-## 📦 Paso 7: Modelo de Datos
 
-Crear la clase que representa un personaje.
-
-```kotlin
-data class DragonBallCharacter(
-    val id: Int,
-    val name: String,
-    val ki: String,
-    val race: String,
-    val gender: String,
-    val description: String,
-    val image: String,
-    val maxKi: String
-)
-```
----
-
-## 🧠 Paso 8: Estado de la Pantalla de Lista
+## 🧠 Paso 11: Estado de la Pantalla de Lista
 
 Clase que representa el estado visible de la pantalla principal.
 
 ```kotlin
 data class ListUiState(
     val isLoading: Boolean = false,
-    val characters: List<DragonBallCharacter> = emptyList(),
+    val characters: List<Character> = emptyList(),
     val error: String? = null,
     val filterName: String = "",
     val filterGender: String = "",
@@ -266,7 +311,7 @@ data class ListUiState(
 
 ---
 
-## 🎯 Paso 9: Eventos de la Pantalla
+## 🎯 Paso 12: Eventos de la Pantalla
 
 Eventos que se generan desde la interfaz.
 ```kotlin
@@ -284,7 +329,7 @@ sealed interface ListEvent {
 
 ---
 
-## 🧠 Paso 10: ViewModel de Lista
+## 🧠 Paso 13: ViewModel de Lista
 
 Clase encargada de manejar el estado y responder a los eventos.
 ```kotlin
@@ -303,50 +348,48 @@ class ListViewModel @Inject constructor(
 
     fun onEvent(event: ListEvent) {
         when (event) {
-            is ListEvent.UpdateFilters -> {
-                _state.update {
+            is ListEvent.UpdateFilters -> _state.update {
                     it.copy(
                         filterName = event.name,
                         filterGender = event.gender,
                         filterRace = event.race
                     )
                 }
-            }
+            
             ListEvent.Search -> loadCharacters()
         }
     }
 
     private fun loadCharacters() {
         viewModelScope.launch {
-            _state.update { it.copy(isLoading = true) }
-
             val current = _state.value
 
-            val result = getCharactersUseCase(
+          getCharactersUseCase(
                 name = current.filterName.takeIf { it.isNotBlank() },
                 gender = current.filterGender.takeIf { it.isNotBlank() },
                 race = current.filterRace.takeIf { it.isNotBlank() }
-            )
+           ).collect { result ->
 
-            when (result) {
-                is Resource.Success ->
-                    _state.update {
-                        it.copy(
-                            isLoading = false,
-                            characters = result.data ?: emptyList()
-                        )
-                    }
+                when (result) {
+                    is Resource.Loading -> _state.update { it.copy(isLoading = true) }
+                
+                    is Resource.Success ->
+                        _state.update {
+                            it.copy(
+                                isLoading = false,
+                                characters = result.data ?: emptyList()
+                            )
+                        }
 
-                is Resource.Error ->
-                    _state.update {
-                        it.copy(
-                            isLoading = false,
-                            error = result.message
-                        )
-                    }
-
-                is Resource.Loading -> _state.update { it.copy(isLoading = true) }
-            }
+                    is Resource.Error ->
+                        _state.update {
+                            it.copy(
+                                isLoading = false,
+                                error = result.message
+                            )
+                        }
+                }
+           }
         }
     }
 }
@@ -354,7 +397,7 @@ class ListViewModel @Inject constructor(
 
 ---
 
-## 🎨 Paso 11: Screen de Lista
+## 🎨 Paso 14: Screen de Lista
 
 Pantalla que muestra filtros y lista de personajes.
 ```kotlin
@@ -476,7 +519,7 @@ fun FilterSection(
 @Composable
 fun ListBodyScreenPreview() {
     val sampleCharacters = listOf(
-        DragonBallCharacter(
+        Character(
             id = 1,
             name = "Goku",
             ki = "60.000.000",
@@ -486,7 +529,7 @@ fun ListBodyScreenPreview() {
             image = "",
             maxKi = "90.000.000.000"
         ),
-        DragonBallCharacter(
+        Character(
             id = 2,
             name = "Vegeta",
             ki = "50.000.000",
@@ -516,11 +559,11 @@ fun ListBodyScreenPreview() {
 
 ---
 
-## 🧩 Paso 12: Item de Personaje
+## 🧩 Paso 15: Item de Personaje
 ```kotlin
 @Composable
 fun CharacterItem(
-    character: DragonBallCharacter,
+    character: Character,
     onClick: () -> Unit
 ) {
     ElevatedCard(
@@ -552,7 +595,7 @@ fun CharacterItem(
 ```
 ---
 
-## 🔍 Paso 13: ViewModel de Detalle
+## 🔍 Paso 16: ViewModel de Detalle
 ```kotlin
 @HiltViewModel
 class DetailViewModel @Inject constructor(
@@ -598,7 +641,7 @@ class DetailViewModel @Inject constructor(
 
 ---
 
-## 📄 Paso 14: Screen de Detalle
+## 📄 Paso 17: Screen de Detalle
 ```kotlin
 @Composable
 fun DetailScreen(
