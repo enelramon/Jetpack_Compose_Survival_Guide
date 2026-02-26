@@ -613,26 +613,17 @@ class DetailViewModel @Inject constructor(
 
     private fun loadCharacter(id: Int) {
         viewModelScope.launch {
-            _state.update { it.copy(isLoading = true) }
-
-            when (val result = getCharacterDetailUseCase(id)) {
-                is Resource.Success ->
-                    _state.update {
-                        it.copy(
-                            isLoading = false,
-                            character = result.data
-                        )
-                    }
-
-                is Resource.Error ->
-                    _state.update {
-                        it.copy(
-                            isLoading = false,
-                            error = result.message
-                        )
-                    }
-
-                is Resource.Loading -> Unit
+            getCharacterDetailUseCase(id).collect{  result->
+                when (result ) {
+                    is Resource.Loading ->_state.update {it.copy(isLoading = true)}
+                    is Resource.Success -> _state.update {it.copy(isLoading = false,character = result.data)}
+                    is Resource.Error -> _state.update {
+                            it.copy(
+                                isLoading = false,
+                                error = result.message
+                            )
+                        }
+                }
             }
         }
     }
