@@ -80,12 +80,6 @@ squareup-moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.re
             .build()
             .create(DragonBallApi::class.java)
     }
-
-    @Provides
-    @Singleton
-    fun provideRepository(api: DragonBallApi): CharacterRepository {
-        return CharacterRepositoryImpl(api)
-    }
 ```
 
 ---
