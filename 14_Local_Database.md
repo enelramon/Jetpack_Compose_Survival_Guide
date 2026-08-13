@@ -797,7 +797,18 @@ fun TaskFormScreen(
             onBack()
         }
     }
-
+    TaskBody(
+        state = state,
+        onEvent = viewModel::onEvent, // Pasamos la referencia a la función
+        onBack = onBack
+    )
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TaskBody(
+    state: TaskFormUiState,  
+    onEvent: (TaskFormUiEvent) -> Unit,
+    onBack: () -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -875,6 +886,24 @@ if (state.tiempoError != null) {
                 }
             }
         }
+    }
+}
+@Preview(showBackground = true)
+@Composable
+fun TaskBodyPreview() {
+    MaterialTheme {
+        TaskBody(
+            state = TaskFormState(
+                descripcion = "",
+                tiempo = "",
+                descripcionError = null,
+                tiempoError = null,
+                isSaving = false,
+                saved = false
+            ),
+            onEvent = {},
+            onBack = {}
+        )
     }
 }
 ```
