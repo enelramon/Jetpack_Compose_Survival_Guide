@@ -152,8 +152,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import edu.ucne.repaso.domain.registrosbancos.model.Banco
-import edu.ucne.repaso.domain.registrosbancos.usecase.*
-import kotlinx.coroutines.flow.*
+import edu.ucne.repaso.domain.registrosbancos.usecase.DeleteBancoUseCase
+import edu.ucne.repaso.domain.registrosbancos.usecase.GetBancoUseCase
+import edu.ucne.repaso.domain.registrosbancos.usecase.UpsertBancoUseCase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import javax.inject.Inject
@@ -171,16 +176,86 @@ class EditBancoViewModel @Inject constructor(
     fun onEvent(event: EditBancoUiEvent) {
         when (event) {
             is EditBancoUiEvent.Load -> loadBanco(event.id)
-            /* ... resto de eventos ... */
+            is EditBancoUiEvent.NombreChanged -> _state.update { it.copy(nombre = event.value, nombreError = null) }
+            is EditBancoUiEvent.FechaChanged -> _state.update { it.copy(fecha = event.value) }
+            is EditBancoUiEvent.BalanceChanged -> _state.update { it.copy(balance = event.value, balanceError = null) }
+            EditBancoUiEvent.Save -> onSave()
+            EditBancoUiEvent.Delete -> onDelete()
         }
     }
 
     private fun loadBanco(id: Int?) {
-        /* ... lógica pura sin SavedStateHandle ... */
+        if (id == null || id == 0) {
+            _state.update {
+                it.copy(
+                    isNew = true,
+                    bancoId = null,
+                    nombre = "",
+                    fecha = LocalDate.now(),
+                    balance = "",
+                    nombreError = null,
+                    balanceError = null,
+                    saved = false,
+                    deleted = false
+                )
+            }
+            return
+        }
+
+        viewModelScope.launch {
+            getBancoUseCase(id)?.let { banco ->
+                _state.update {
+                    it.copy(
+                        isNew = false,
+                        bancoId = banco.bancoId,
+                        nombre = banco.nombre,
+                        fecha = banco.fecha,
+                        balance = banco.balance.toString(),
+                        saved = false,
+                        deleted = false
+                    )
+                }
+            } ?: _state.update { it.copy(isNew = true, bancoId = null, saved = false, deleted = false) }
+        }
+    }
+
+    private fun onSave() {
+        viewModelScope.launch {
+            _state.update { it.copy(isSaving = true) }
+            val banco = Banco(
+                bancoId = state.value.bancoId ?: 0,
+                nombre = state.value.nombre,
+                fecha = state.value.fecha,
+                balance = state.value.balance.toDoubleOrNull() ?: 0.0
+            )
+
+            val result = upsertBancoUseCase(banco)
+            result.onSuccess { newId ->
+                _state.update { it.copy(isSaving = false, saved = true, bancoId = newId, isNew = false) }
+            }.onFailure { e ->
+                val msg = e.message ?: ""
+                _state.update {
+                    it.copy(
+                        isSaving = false,
+                        nombreError = if (msg.contains("nombre:")) msg.substringAfter("nombre:") else null,
+                        balanceError = if (msg.contains("balance:")) msg.substringAfter("balance:") else null,
+                        fechaError = if (msg.contains("fecha:")) msg.substringAfter("fecha:") else null
+                    )
+                }
+            }
+        }
+    }
+
+    private fun onDelete() {
+        val id = state.value.bancoId ?: return
+        viewModelScope.launch {
+            _state.update { it.copy(isDeleting = true) }
+            deleteBancoUseCase(id)
+            _state.update { it.copy(isDeleting = false, deleted = true) }
+        }
     }
 }
 ```
-
 ## Resumen de Buenas Prácticas
 
 * **Pila Persistente:** Utiliza siempre `rememberNavBackStack`. Es el único gestor nativo de la librería que garantiza que el usuario no regrese al inicio al rotar la pantalla.
